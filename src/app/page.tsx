@@ -7,8 +7,6 @@ export default function Home() {
       <Header />
       <main className="relative">
         <Hero />
-        {/* Scroll space to enable scroll interaction */}
-        <section className="min-h-[120vh] w-full bg-[var(--background)]" />
       </main>
     </>
   );

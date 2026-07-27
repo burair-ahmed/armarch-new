@@ -21,30 +21,32 @@ const textStyle: React.CSSProperties = {
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
 
-  // Track scroll progress through the pinned container (0 -> 1)
+  // Track scroll progress through the 300vh pinned track (0.0 -> 1.0)
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   })
 
-  // Vertical offsets spread out as user scrolls through the sticky track
-  const yUp1 = useTransform(scrollYProgress, [0, 0.8], ['0%', '-20%'])
-  const yUp2 = useTransform(scrollYProgress, [0, 0.8], ['0%', '-40%'])
-  const yUp3 = useTransform(scrollYProgress, [0, 0.8], ['0%', '-60%'])
+  // ── KEYFRAME 0.0 -> 0.45: Echo expansion animation ───────────────────────
+  const yUp1 = useTransform(scrollYProgress, [0, 0.45], ['0%', '-20%'])
+  const yUp2 = useTransform(scrollYProgress, [0, 0.45], ['0%', '-40%'])
+  const yUp3 = useTransform(scrollYProgress, [0, 0.45], ['0%', '-60%'])
 
-  const yDown1 = useTransform(scrollYProgress, [0, 0.8], ['0%', '20%'])
-  const yDown2 = useTransform(scrollYProgress, [0, 0.8], ['0%', '40%'])
-  const yDown3 = useTransform(scrollYProgress, [0, 0.8], ['0%', '60%'])
+  const yDown1 = useTransform(scrollYProgress, [0, 0.45], ['0%', '20%'])
+  const yDown2 = useTransform(scrollYProgress, [0, 0.45], ['0%', '40%'])
+  const yDown3 = useTransform(scrollYProgress, [0, 0.45], ['0%', '60%'])
 
-  // Opacity fades in smoothly as user scrolls
-  const opacity1 = useTransform(scrollYProgress, [0, 0.8], [0, 0.22])
-  const opacity2 = useTransform(scrollYProgress, [0, 0.8], [0, 0.14])
-  const opacity3 = useTransform(scrollYProgress, [0, 0.8], [0, 0.07])
+  const opacity1 = useTransform(scrollYProgress, [0, 0.45], [0, 0.22])
+  const opacity2 = useTransform(scrollYProgress, [0, 0.45], [0, 0.14])
+  const opacity3 = useTransform(scrollYProgress, [0, 0.45], [0, 0.07])
+
+  // ── KEYFRAME 0.45 -> 1.00: White "About Us" section slides up to 100% cover
+  const aboutY = useTransform(scrollYProgress, [0.45, 1.0], ['100%', '0%'])
 
   return (
-    // Outer scroll track (250vh height ensures long pinned scroll experience)
-    <div ref={containerRef} className="relative h-[250vh]">
-      {/* Sticky viewport frame - remains locked to the screen while scrolling */}
+    // Outer scroll track (300vh height pins the viewport for the entire sequence)
+    <div ref={containerRef} className="relative h-[300vh]">
+      {/* Sticky viewport frame - page stays locked here while scrolling */}
       <section
         id="hero"
         className="sticky top-0 h-screen flex flex-col justify-center items-center overflow-hidden"
@@ -61,7 +63,7 @@ export default function Hero() {
           }}
         />
 
-        {/* Display text container with pinned shadow stack animation */}
+        {/* Brand Display Text + Echo Stack */}
         <div className="relative w-full flex justify-center items-center select-none" style={{ overflow: 'visible' }}>
           {/* Echoes ABOVE */}
           <motion.div
@@ -121,6 +123,16 @@ export default function Hero() {
             <div className="absolute top-0 left-0 w-full h-1/2 bg-[var(--accent)] animate-scroll-line" />
           </div>
         </div>
+
+        {/* ── KEYFRAME 0.45 -> 1.00: White "About Us" overlay section ────────────── */}
+        <motion.div
+          style={{ y: aboutY }}
+          className="absolute inset-0 bg-white z-40 flex flex-col justify-center items-center"
+        >
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-black">
+            About Us
+          </h2>
+        </motion.div>
       </section>
     </div>
   )
