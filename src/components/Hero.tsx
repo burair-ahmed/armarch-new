@@ -2,6 +2,7 @@
 
 import { useRef } from 'react'
 import { useScroll, useTransform, motion } from 'framer-motion'
+import AboutSection from '@/components/AboutSection'
 
 const TEXT = 'ArmArch'
 const FONT_SIZE = 'clamp(80px, 16vw, 220px)'
@@ -124,14 +125,12 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ── KEYFRAME 0.45 -> 1.00: White "About Us" overlay section ────────────── */}
+        {/* ── KEYFRAME 0.45 -> 1.00: Full "About Us" overlay section ────────────── */}
         <motion.div
           style={{ y: aboutY }}
-          className="absolute inset-0 bg-white z-40 flex flex-col justify-center items-center"
+          className="absolute inset-0 z-40 w-full h-full"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-black">
-            About Us
-          </h2>
+          <AboutSection />
         </motion.div>
       </section>
     </div>
