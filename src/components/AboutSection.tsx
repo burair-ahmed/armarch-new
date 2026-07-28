@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function AboutSection() {
   return (
-    <section className="w-full h-full min-h-screen bg-[#f5f4f0] text-[#111111] flex items-center justify-center py-8 sm:py-12 px-4 sm:px-6 md:px-10 lg:px-12 overflow-y-auto">
-      <div className="max-w-[1100px] w-full grid grid-cols-1 lg:grid-cols-[220px_1fr] xl:grid-cols-[260px_1fr] gap-6 lg:gap-8 items-stretch my-auto">
+    <div className="w-full min-h-full flex items-center justify-center py-6 sm:py-10">
+      <div className="w-[88%] max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-[220px_1fr] xl:grid-cols-[260px_1fr] gap-6 lg:gap-8 items-stretch">
         
         {/* ── LEFT COLUMN: Building Image (image1about.png) ── */}
         <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-0 rounded-2xl overflow-hidden shadow-sm">
@@ -84,6 +84,6 @@ export default function AboutSection() {
         </div>
 
       </div>
-    </section>
+    </div>
   );
 }

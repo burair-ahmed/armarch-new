@@ -128,7 +128,7 @@ export default function Hero() {
         {/* ── KEYFRAME 0.45 -> 1.00: Full "About Us" overlay section ────────────── */}
         <motion.div
           style={{ y: aboutY }}
-          className="absolute inset-0 z-40 w-full h-full"
+          className="absolute inset-0 z-40 w-full h-full bg-[#f5f4f0] overflow-y-auto"
         >
           <AboutSection />
         </motion.div>
