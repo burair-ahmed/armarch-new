@@ -3,6 +3,7 @@
 import { useRef } from 'react'
 import { useScroll, useTransform, motion } from 'framer-motion'
 import AboutSection from '@/components/AboutSection'
+import WhyChooseUsSection from '@/components/WhyChooseUsSection'
 
 const TEXT = 'ArmArch'
 const FONT_SIZE = 'clamp(80px, 16vw, 220px)'
@@ -41,12 +42,15 @@ export default function Hero() {
   const opacity2 = useTransform(scrollYProgress, [0, 0.45], [0, 0.14])
   const opacity3 = useTransform(scrollYProgress, [0, 0.45], [0, 0.07])
 
-  // ── KEYFRAME 0.45 -> 1.00: White "About Us" section slides up to 100% cover
-  const aboutY = useTransform(scrollYProgress, [0.45, 1.0], ['100%', '0%'])
+  // ── KEYFRAME 0.45 -> 0.70: White "About Us" section slides up to 100% cover
+  const aboutY = useTransform(scrollYProgress, [0.45, 0.70], ['100%', '0%'])
+
+  // ── KEYFRAME 0.70 -> 1.00: "Why Choose Us" section slides up over About Us
+  const whyY = useTransform(scrollYProgress, [0.70, 1.0], ['100%', '0%'])
 
   return (
     // Outer scroll track (300vh height pins the viewport for the entire sequence)
-    <div ref={containerRef} className="relative h-[300vh]">
+    <div ref={containerRef} className="relative h-[450vh]">
       {/* Sticky viewport frame - page stays locked here while scrolling */}
       <section
         id="hero"
@@ -125,12 +129,20 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ── KEYFRAME 0.45 -> 1.00: Full "About Us" overlay section ────────────── */}
+        {/* ── KEYFRAME 0.45 -> 0.70: Full "About Us" overlay section ────────────── */}
         <motion.div
           style={{ y: aboutY }}
           className="absolute inset-0 z-40 w-full h-full bg-[#f5f4f0] overflow-y-auto"
         >
           <AboutSection />
+        </motion.div>
+
+        {/* ── KEYFRAME 0.70 -> 1.00: Full "Why Choose Us" overlay section ─────────── */}
+        <motion.div
+          style={{ y: whyY }}
+          className="absolute inset-0 z-50 w-full h-full bg-[#f5f4f0] overflow-y-auto"
+        >
+          <WhyChooseUsSection />
         </motion.div>
       </section>
     </div>
