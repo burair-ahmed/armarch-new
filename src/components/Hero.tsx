@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { useScroll, useTransform, motion } from 'framer-motion'
 import AboutSection from '@/components/AboutSection'
 import WhyChooseUsSection from '@/components/WhyChooseUsSection'
+import BranchDiagram from '@/components/BranchDiagram'
 
 const TEXT = 'ArmArch'
 const FONT_SIZE = 'clamp(80px, 16vw, 220px)'
@@ -42,15 +43,21 @@ export default function Hero() {
   const opacity2 = useTransform(scrollYProgress, [0, 0.45], [0, 0.14])
   const opacity3 = useTransform(scrollYProgress, [0, 0.45], [0, 0.07])
 
-  // ── KEYFRAME 0.45 -> 0.70: White "About Us" section slides up to 100% cover
-  const aboutY = useTransform(scrollYProgress, [0.45, 0.70], ['100%', '0%'])
+  // ── KEYFRAME 0.30 -> 0.45: "About Us" section slides up
+  const aboutY = useTransform(scrollYProgress, [0.30, 0.45], ['100%', '0%'])
 
-  // ── KEYFRAME 0.70 -> 1.00: "Why Choose Us" section slides up over About Us
-  const whyY = useTransform(scrollYProgress, [0.70, 1.0], ['100%', '0%'])
+  // ── KEYFRAME 0.45 -> 0.60: "Why Choose Us" section slides up over About Us
+  const whyY = useTransform(scrollYProgress, [0.45, 0.60], ['100%', '0%'])
+
+  // ── KEYFRAME 0.60 -> 0.75: "Branch Diagram" section slides up over Why Choose Us
+  const branchY = useTransform(scrollYProgress, [0.60, 0.75], ['100%', '0%'])
+
+  // ── KEYFRAME 0.75 -> 1.00: Internal scroll progress (fires ONLY AFTER section completely covers)
+  const branchProgress = useTransform(scrollYProgress, [0.75, 1.00], [0, 1])
 
   return (
-    // Outer scroll track (300vh height pins the viewport for the entire sequence)
-    <div ref={containerRef} className="relative h-[450vh]">
+    // Outer scroll track (700vh height pins the viewport for the entire sequence)
+    <div ref={containerRef} className="relative h-[700vh]">
       {/* Sticky viewport frame - page stays locked here while scrolling */}
       <section
         id="hero"
@@ -137,12 +144,20 @@ export default function Hero() {
           <AboutSection />
         </motion.div>
 
-        {/* ── KEYFRAME 0.70 -> 1.00: Full "Why Choose Us" overlay section ─────────── */}
+        {/* ── KEYFRAME 0.62 -> 0.78: Full "Why Choose Us" overlay section ────────── */}
         <motion.div
           style={{ y: whyY }}
           className="absolute inset-0 z-50 w-full h-full bg-[#f5f4f0] overflow-y-auto"
         >
           <WhyChooseUsSection />
+        </motion.div>
+
+        {/* ── KEYFRAME 0.78 -> 1.00: Full "Branch Diagram" overlay section ─────────── */}
+        <motion.div
+          style={{ y: branchY }}
+          className="absolute inset-0 z-[60] w-full h-full bg-[#f2f2f2] overflow-y-auto"
+        >
+          <BranchDiagram scrollProgress={branchProgress} />
         </motion.div>
       </section>
     </div>
