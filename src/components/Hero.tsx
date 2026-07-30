@@ -3,6 +3,7 @@
 import { useRef } from 'react'
 import { useScroll, useTransform, motion } from 'framer-motion'
 import AboutSection from '@/components/AboutSection'
+import DesignPhilosophySection from '@/components/DesignPhilosophySection'
 import WhyChooseUsSection from '@/components/WhyChooseUsSection'
 import BranchDiagram from '@/components/BranchDiagram'
 
@@ -24,40 +25,43 @@ const textStyle: React.CSSProperties = {
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
 
-  // Track scroll progress through the 300vh pinned track (0.0 -> 1.0)
+  // Track scroll progress through the 900vh pinned track (0.0 -> 1.0)
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   })
 
-  // ── KEYFRAME 0.0 -> 0.45: Echo expansion animation ───────────────────────
-  const yUp1 = useTransform(scrollYProgress, [0, 0.45], ['0%', '-20%'])
-  const yUp2 = useTransform(scrollYProgress, [0, 0.45], ['0%', '-40%'])
-  const yUp3 = useTransform(scrollYProgress, [0, 0.45], ['0%', '-60%'])
+  // ── KEYFRAME 0.0 -> 0.35: Echo expansion animation ───────────────────────
+  const yUp1 = useTransform(scrollYProgress, [0, 0.35], ['0%', '-20%'])
+  const yUp2 = useTransform(scrollYProgress, [0, 0.35], ['0%', '-40%'])
+  const yUp3 = useTransform(scrollYProgress, [0, 0.35], ['0%', '-60%'])
 
-  const yDown1 = useTransform(scrollYProgress, [0, 0.45], ['0%', '20%'])
-  const yDown2 = useTransform(scrollYProgress, [0, 0.45], ['0%', '40%'])
-  const yDown3 = useTransform(scrollYProgress, [0, 0.45], ['0%', '60%'])
+  const yDown1 = useTransform(scrollYProgress, [0, 0.35], ['0%', '20%'])
+  const yDown2 = useTransform(scrollYProgress, [0, 0.35], ['0%', '40%'])
+  const yDown3 = useTransform(scrollYProgress, [0, 0.35], ['0%', '60%'])
 
-  const opacity1 = useTransform(scrollYProgress, [0, 0.45], [0, 0.22])
-  const opacity2 = useTransform(scrollYProgress, [0, 0.45], [0, 0.14])
-  const opacity3 = useTransform(scrollYProgress, [0, 0.45], [0, 0.07])
+  const opacity1 = useTransform(scrollYProgress, [0, 0.35], [0, 0.22])
+  const opacity2 = useTransform(scrollYProgress, [0, 0.35], [0, 0.14])
+  const opacity3 = useTransform(scrollYProgress, [0, 0.35], [0, 0.07])
 
-  // ── KEYFRAME 0.30 -> 0.45: "About Us" section slides up
-  const aboutY = useTransform(scrollYProgress, [0.30, 0.45], ['100%', '0%'])
+  // ── KEYFRAME 0.20 -> 0.35: "About Us" section slides up
+  const aboutY = useTransform(scrollYProgress, [0.20, 0.35], ['100%', '0%'])
 
-  // ── KEYFRAME 0.45 -> 0.60: "Why Choose Us" section slides up over About Us
-  const whyY = useTransform(scrollYProgress, [0.45, 0.60], ['100%', '0%'])
+  // ── KEYFRAME 0.35 -> 0.50: "Why Choose Us" section slides up over About Us
+  const whyY = useTransform(scrollYProgress, [0.35, 0.50], ['100%', '0%'])
 
-  // ── KEYFRAME 0.60 -> 0.75: "Branch Diagram" section slides up over Why Choose Us
-  const branchY = useTransform(scrollYProgress, [0.60, 0.75], ['100%', '0%'])
+  // ── KEYFRAME 0.50 -> 0.65: "Branch Diagram" section slides up over Why Choose Us
+  const branchY = useTransform(scrollYProgress, [0.50, 0.65], ['100%', '0%'])
 
-  // ── KEYFRAME 0.75 -> 1.00: Internal scroll progress (fires ONLY AFTER section completely covers)
-  const branchProgress = useTransform(scrollYProgress, [0.75, 1.00], [0, 1])
+  // ── KEYFRAME 0.65 -> 0.80: Internal scroll progress for Branch Diagram nodes
+  const branchProgress = useTransform(scrollYProgress, [0.65, 0.80], [0, 1])
+
+  // ── KEYFRAME 0.80 -> 0.95: "Design Philosophy" section slides up over Branch Diagram
+  const philosophyY = useTransform(scrollYProgress, [0.80, 0.95], ['100%', '0%'])
 
   return (
-    // Outer scroll track (700vh height pins the viewport for the entire sequence)
-    <div ref={containerRef} className="relative h-[700vh]">
+    // Outer scroll track (900vh height pins the viewport for the entire sequence)
+    <div ref={containerRef} className="relative h-[1000vh]">
       {/* Sticky viewport frame - page stays locked here while scrolling */}
       <section
         id="hero"
@@ -136,7 +140,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ── KEYFRAME 0.45 -> 0.70: Full "About Us" overlay section ────────────── */}
+        {/* ── KEYFRAME 0.20 -> 0.35: Full "About Us" overlay section ────────────── */}
         <motion.div
           style={{ y: aboutY }}
           className="absolute inset-0 z-40 w-full h-full bg-[#f5f4f0] overflow-y-auto"
@@ -144,7 +148,7 @@ export default function Hero() {
           <AboutSection />
         </motion.div>
 
-        {/* ── KEYFRAME 0.62 -> 0.78: Full "Why Choose Us" overlay section ────────── */}
+        {/* ── KEYFRAME 0.35 -> 0.50: Full "Why Choose Us" overlay section ────────── */}
         <motion.div
           style={{ y: whyY }}
           className="absolute inset-0 z-50 w-full h-full bg-[#f5f4f0] overflow-y-auto"
@@ -152,12 +156,20 @@ export default function Hero() {
           <WhyChooseUsSection />
         </motion.div>
 
-        {/* ── KEYFRAME 0.78 -> 1.00: Full "Branch Diagram" overlay section ─────────── */}
+        {/* ── KEYFRAME 0.50 -> 0.65: Full "Branch Diagram" overlay section ─────────── */}
         <motion.div
           style={{ y: branchY }}
           className="absolute inset-0 z-[60] w-full h-full bg-[#f2f2f2] overflow-y-auto"
         >
           <BranchDiagram scrollProgress={branchProgress} />
+        </motion.div>
+
+        {/* ── KEYFRAME 0.80 -> 0.95: Full "Design Philosophy" overlay section ───── */}
+        <motion.div
+          style={{ y: philosophyY }}
+          className="absolute inset-0 z-[70] w-full h-full bg-[#f5f4f0] overflow-y-auto"
+        >
+          <DesignPhilosophySection />
         </motion.div>
       </section>
     </div>
