@@ -29,52 +29,54 @@ const points = [
 
 export default function WhyChooseUsSection() {
   return (
-    <div className="w-full h-full flex items-center justify-center overflow-hidden">
-      <div className="w-[88%] max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10 items-center py-6 lg:py-0">
+    <div className="w-full min-h-full flex items-center justify-center py-6 sm:py-10">
+      <div className="w-[88%] max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
 
         {/* ── LEFT COLUMN: Text Content ── */}
-        <div className="flex flex-col gap-2 lg:gap-4">
+        <div className="flex flex-col gap-4">
 
           {/* Giant heading */}
           <h2
             className="font-black text-[#111111] leading-[0.92] tracking-tight"
-            style={{ fontSize: "clamp(28px, 5vw, 82px)" }}
+            style={{ fontSize: "clamp(32px, 6vw, 82px)" }}
           >
             Why<br />ArmArch?
           </h2>
 
           {/* Subtitle */}
-          <p className="text-[11px] sm:text-xs font-bold text-[#111111] leading-snug">
+          <p className="text-xs sm:text-sm font-bold text-[#111111] leading-snug mt-1">
             Your Trusted Partner in Design, Visualization &amp; Consultancy
           </p>
 
-          {/* Paragraph — hidden on mobile to save space */}
-          <p className="hidden sm:block text-xs sm:text-[13px] text-[#333333] leading-relaxed font-normal">
+          {/* Paragraph */}
+          <p className="text-xs sm:text-[13px] text-[#333333] leading-relaxed font-normal">
             At ArmArch, we believe exceptional architecture deserves exceptional
             presentation. We combine design expertise, technical precision, and
             photorealistic visualization to help developers, architects, and
-            investors communicate their vision with confidence.
+            investors communicate their vision with confidence. From concept
+            development to final presentation, our integrated approach delivers
+            solutions that are both visually compelling and commercially valuable.
           </p>
 
           {/* What Sets Us Apart */}
           <div>
-            <p className="text-[11px] sm:text-xs font-bold text-[#111111] mb-1">
+            <p className="text-xs sm:text-[13px] font-bold text-[#111111] mb-1.5">
               What Sets Us Apart
             </p>
-            {/* Mobile: 2-col grid of bullet points; Desktop: single column list */}
-            <ul className="grid grid-cols-2 lg:grid-cols-1 gap-x-4 gap-y-1">
+            <ul className="space-y-1">
               {points.map(({ title, desc }) => (
-                <li key={title} className="text-[10px] sm:text-xs text-[#333333] leading-snug">
+                <li key={title} className="text-xs sm:text-[13px] text-[#333333] leading-snug">
                   <span className="font-bold text-[#111111]">• {title}</span>
-                  <span className="hidden sm:inline font-normal"> — {desc}</span>
+                  <br />
+                  <span className="font-normal">{desc}</span>
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        {/* ── RIGHT COLUMN: Images (hidden on mobile, shown on lg+) ── */}
-        <div className="hidden lg:grid grid-cols-2 gap-3 h-[500px]">
+        {/* ── RIGHT COLUMN: 1 image left, 1 image right ── */}
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 h-[400px] sm:h-[460px] lg:h-[500px]">
 
           {/* why1.png — left */}
           <div className="relative w-full h-full rounded-xl overflow-hidden shadow-sm">
@@ -82,7 +84,7 @@ export default function WhyChooseUsSection() {
               src="/why1.png"
               alt="ArmArch outdoor terrace visualization"
               fill
-              sizes="25vw"
+              sizes="(max-width: 1024px) 45vw, 25vw"
               className="object-cover object-center"
             />
           </div>
@@ -93,33 +95,11 @@ export default function WhyChooseUsSection() {
               src="/why2.png"
               alt="ArmArch modern architecture visualization"
               fill
-              sizes="25vw"
+              sizes="(max-width: 1024px) 45vw, 25vw"
               className="object-cover object-center"
             />
           </div>
 
-        </div>
-
-        {/* ── Mobile only: single compact image strip ── */}
-        <div className="lg:hidden grid grid-cols-2 gap-2 h-[160px]">
-          <div className="relative w-full h-full rounded-xl overflow-hidden shadow-sm">
-            <Image
-              src="/why1.png"
-              alt="ArmArch outdoor terrace visualization"
-              fill
-              sizes="45vw"
-              className="object-cover object-center"
-            />
-          </div>
-          <div className="relative w-full h-full rounded-xl overflow-hidden shadow-sm">
-            <Image
-              src="/why2.png"
-              alt="ArmArch modern architecture visualization"
-              fill
-              sizes="45vw"
-              className="object-cover object-center"
-            />
-          </div>
         </div>
 
       </div>
