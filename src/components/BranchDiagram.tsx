@@ -6,16 +6,14 @@ import { motion, useTransform, useMotionValue, MotionValue, useMotionValueEvent 
 /* ─────────────────────────────────────────────────────────────
    BranchDiagram
    ─────────────────────────────────────────────────────────────
-   Exact Geometry:
-     • Top Root Dot at (24, 34) & Bottom Root Dot at (24, 286)
-     • C-Arc path: M 24 34 C 135 34, 135 286, 24 286
-     • 4 Branch Connector Lines starting EXACTLY on the C-Arc:
-       - Line 0: (24, 34)   → (160, 34)   [Box 0]
-       - Line 1: (103, 118) → (160, 118) [Box 1]
-       - Line 2: (103, 202) → (160, 202) [Box 2]
-       - Line 3: (24, 286)  → (160, 286)  [Box 3]
-     • Branch lines draw smoothly outward from the C-Arc to each Box.
-     • Boxes appear ONLY after their connector line completes (100%).
+   Exact Circular Arc Geometry:
+     • Top Root Dot at (30, 34) & Bottom Root Dot at (30, 286)
+     • Pure Round Semi-Circle Arc: M 30 34 A 126 126 0 0 1 30 286
+     • 4 Tilted/Straight Connector Lines originating from MID-ARC:
+       - Line 0: (93, 51)  → (160, 34)   [Tilts UP to Box 0]
+       - Line 1: (148, 117) → (160, 118) [Box 1]
+       - Line 2: (148, 203) → (160, 202) [Box 2]
+       - Line 3: (93, 269) → (160, 286)  [Tilts DOWN to Box 3]
 ──────────────────────────────────────────────────────────────── */
 
 const BAR_HEIGHT = 68
@@ -26,26 +24,26 @@ const SVG_W  = 160
 const SVG_H  = ITEM_COUNT * BAR_HEIGHT + (ITEM_COUNT - 1) * BAR_GAP // 320px
 
 /* Top and Bottom root circle coordinates */
-const CIRCLE_TOP    = { x: 24, y: 34 }
-const CIRCLE_BOTTOM = { x: 24, y: 286 }
+const CIRCLE_TOP    = { x: 30, y: 34 }
+const CIRCLE_BOTTOM = { x: 30, y: 286 }
 
-/* Enhanced curvature C-Arc path */
-const ARC_PATH = `M ${CIRCLE_TOP.x} ${CIRCLE_TOP.y} C 135 ${CIRCLE_TOP.y}, 135 ${CIRCLE_BOTTOM.y}, ${CIRCLE_BOTTOM.x} ${CIRCLE_BOTTOM.y}`
+/* Perfect round circular arc path (R = 126) */
+const ARC_PATH = `M ${CIRCLE_TOP.x} ${CIRCLE_TOP.y} A 126 126 0 0 1 ${CIRCLE_BOTTOM.x} ${CIRCLE_BOTTOM.y}`
 
-/* 4 Branch connector lines starting EXACTLY on the C-Arc curve */
+/* 4 Branch connector lines starting from MID-ARC points */
 const BRANCH_PATHS = [
-  `M 24 34 L 160 34`,   // Line 0 (Box 0 center Y=34)
-  `M 103 118 L 160 118`, // Line 1 (Box 1 center Y=118)
-  `M 103 202 L 160 202`, // Line 2 (Box 2 center Y=202)
-  `M 24 286 L 160 286`,  // Line 3 (Box 3 center Y=286)
+  `M 93 51 L 160 34`,   // Line 0 (tilted UP from mid-arc to Box 0 center Y=34)
+  `M 148 117 L 160 118`, // Line 1 (from upper mid-arc to Box 1 center Y=118)
+  `M 148 203 L 160 202`, // Line 2 (from lower mid-arc to Box 2 center Y=202)
+  `M 93 269 L 160 286`,  // Line 3 (tilted DOWN from mid-arc to Box 3 center Y=286)
 ]
 
 /* Sequential thresholds: Box N appears ONLY AFTER line N completes (100%) */
 const THRESHOLDS = [
-  { root: [0.00, 0.10], line: [0.05, 0.26], bar: 0.26 }, // Bar 0 appears at 0.26 (when line 0 is done)
-  { root: [0.00, 0.10], line: [0.26, 0.47], bar: 0.47 }, // Bar 1 appears at 0.47 (when line 1 is done)
-  { root: [0.00, 0.10], line: [0.47, 0.68], bar: 0.68 }, // Bar 2 appears at 0.68 (when line 2 is done)
-  { root: [0.00, 0.10], line: [0.68, 0.90], bar: 0.90 }, // Bar 3 appears at 0.90 (when line 3 is done)
+  { root: [0.00, 0.10], line: [0.05, 0.26], bar: 0.26 }, // Bar 0 appears at 0.26
+  { root: [0.00, 0.10], line: [0.26, 0.47], bar: 0.47 }, // Bar 1 appears at 0.47
+  { root: [0.00, 0.10], line: [0.47, 0.68], bar: 0.68 }, // Bar 2 appears at 0.68
+  { root: [0.00, 0.10], line: [0.68, 0.90], bar: 0.90 }, // Bar 3 appears at 0.90
 ]
 
 const BAR_WIDTHS = ['100%', '94%', '94%', '84%']
@@ -122,7 +120,7 @@ export default function BranchDiagram({ scrollProgress }: BranchDiagramProps) {
           height: SVG_H,
         }}
       >
-        {/* SVG Connectors: 2 Root Circles + C-Arc + 4 Branch Lines */}
+        {/* SVG Connectors: 2 Root Circles + Perfect Round Arc + 4 Tilted Branch Lines */}
         <svg
           viewBox={`0 0 ${SVG_W} ${SVG_H}`}
           width={SVG_W}
@@ -149,7 +147,7 @@ export default function BranchDiagram({ scrollProgress }: BranchDiagramProps) {
             style={{ opacity: rootOpacity }}
           />
 
-          {/* Main C-Arc Path */}
+          {/* Perfect Round Semi-Circle Arc */}
           <motion.path
             d={ARC_PATH}
             fill="none"
@@ -159,7 +157,7 @@ export default function BranchDiagram({ scrollProgress }: BranchDiagramProps) {
             style={{ pathLength: arcPathLength }}
           />
 
-          {/* 4 Branch Connector Lines drawing out to each Box */}
+          {/* 4 Branch Connector Lines starting from Mid-Arc */}
           {BRANCH_PATHS.map((d, i) => (
             <motion.path
               key={i}
