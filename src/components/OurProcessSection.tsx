@@ -24,7 +24,7 @@ const steps = [
   },
 ]
 
-// Open-corner SVG path: rounded rect with bottom-left notch wide open so strokes never touch numbers
+// Open-corner SVG path: rounded rect with bottom-left notch wide open
 function buildOpenCornerPath(
   ox: number,
   oy: number,
@@ -38,16 +38,12 @@ function buildOpenCornerPath(
   const bottom = oy + h
 
   return [
-    // Top edge & corners
     `M ${ox + r} ${oy}`,
     `L ${right - r} ${oy}`,
     `Q ${right} ${oy} ${right} ${oy + r}`,
-    // Right edge
     `L ${right} ${bottom - r}`,
     `Q ${right} ${bottom} ${right - r} ${bottom}`,
-    // Bottom edge: stops wide before reaching the number
     `L ${ox + gapX} ${bottom}`,
-    // Left edge: stops high before reaching the number
     `M ${ox} ${bottom - gapY}`,
     `L ${ox} ${oy + r}`,
     `Q ${ox} ${oy} ${ox + r} ${oy}`,
@@ -66,18 +62,16 @@ function StepCard({ number, code, desc, delay }: StepCardProps) {
   const contentRef = useRef<HTMLDivElement>(null)
   const numRef = useRef<SVGTextElement>(null)
 
-  // Canvas bounds
   const CANVAS_W = 240
   const CANVAS_H = 270
 
-  // Frame rectangle coordinates inside canvas
-  const OX = 18  // left margin for stroke & number alignment
-  const OY = 10  // top margin
-  const W = 208  // frame width
-  const H = 240  // frame height
-  const R = 24   // corner radius
-  const GAP_X = 75 // bottom stroke stops at OX + 75, leaving clearance for number width
-  const GAP_Y = 65 // left stroke stops at bottom - 65, leaving clearance for number height
+  const OX = 18
+  const OY = 10
+  const W = 208
+  const H = 240
+  const R = 24
+  const GAP_X = 75
+  const GAP_Y = 65
 
   const pathData = buildOpenCornerPath(OX, OY, W, H, R, GAP_X, GAP_Y)
 
@@ -116,10 +110,7 @@ function StepCard({ number, code, desc, delay }: StepCardProps) {
   }, [delay])
 
   return (
-    <div
-      className="relative group w-[230px] sm:w-[240px] mx-auto cursor-default select-none transition-transform duration-300 hover:scale-[1.03]"
-      style={{ height: CANVAS_H }}
-    >
+    <div className="relative group w-full max-w-[170px] sm:max-w-[240px] aspect-[240/270] mx-auto cursor-default select-none transition-transform duration-300 hover:scale-[1.03]">
       {/* SVG frame */}
       <svg
         viewBox={`0 0 ${CANVAS_W} ${CANVAS_H}`}
@@ -138,7 +129,7 @@ function StepCard({ number, code, desc, delay }: StepCardProps) {
           strokeLinejoin="round"
           style={{ transition: 'stroke 0.3s ease' }}
         />
-        {/* Slightly smaller background number positioned nicely in the open notch */}
+        {/* Background number in open notch */}
         <text
           ref={numRef}
           x={OX - 10}
@@ -163,18 +154,18 @@ function StepCard({ number, code, desc, delay }: StepCardProps) {
         ref={contentRef}
         className="absolute flex flex-col items-center justify-center text-center pointer-events-none"
         style={{
-          top: `${OY}px`,
-          left: `${OX}px`,
-          width: `${W}px`,
-          height: `${H - 24}px`,
+          top: `${(OY / CANVAS_H) * 100}%`,
+          left: `${(OX / CANVAS_W) * 100}%`,
+          width: `${(W / CANVAS_W) * 100}%`,
+          height: `${((H - 24) / CANVAS_H) * 100}%`,
           opacity: 0,
         }}
       >
-        <div className="w-full max-w-[165px] px-1 flex flex-col items-center justify-center">
-          <p className="font-bold text-[#111111] leading-tight mb-2.5 text-center text-[14px] sm:text-[15px]">
+        <div className="w-full max-w-[130px] sm:max-w-[165px] px-1 flex flex-col items-center justify-center">
+          <p className="font-bold text-[#111111] leading-tight mb-1 sm:mb-2.5 text-center text-[10px] sm:text-[15px]">
             {code}
           </p>
-          <p className="text-[#333333] leading-relaxed font-normal text-center text-[12px] sm:text-[13px]">
+          <p className="text-[#333333] leading-snug sm:leading-relaxed font-normal text-center text-[8.5px] sm:text-[13px]">
             {desc}
           </p>
         </div>
@@ -186,13 +177,13 @@ function StepCard({ number, code, desc, delay }: StepCardProps) {
 export default function OurProcessSection() {
   return (
     <div className="w-full min-h-full flex items-center justify-center py-6 sm:py-10 bg-[#f5f4f0]">
-      <div className="w-[88%] max-w-[1100px] mx-auto flex flex-col gap-8 lg:gap-12">
+      <div className="w-[88%] max-w-[1100px] mx-auto flex flex-col gap-6 sm:gap-8 lg:gap-12">
 
         {/* ── TOP ROW: Heading (left) + Paragraph (right) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-end">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-10 items-end">
           <h2
             className="font-black text-[#111111] leading-[0.9] tracking-tight"
-            style={{ fontSize: 'clamp(36px, 6vw, 82px)' }}
+            style={{ fontSize: 'clamp(32px, 6vw, 82px)' }}
           >
             Our Process
           </h2>
@@ -204,8 +195,8 @@ export default function OurProcessSection() {
           </p>
         </div>
 
-        {/* ── BOTTOM ROW: 4 Step Cards ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 items-center justify-items-center">
+        {/* ── BOTTOM ROW: 4 Step Cards (2 columns on mobile, 4 columns on lg) ── */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-4 items-center justify-items-center">
           {steps.map((step, i) => (
             <StepCard
               key={i}

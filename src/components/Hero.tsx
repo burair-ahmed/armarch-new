@@ -8,6 +8,7 @@ import WhyChooseUsSection from '@/components/WhyChooseUsSection'
 import BranchDiagram from '@/components/BranchDiagram'
 import NumberedFramesSection from '@/components/NumberedFramesSection'
 import OurProcessSection from '@/components/OurProcessSection'
+import ProjectExperienceSection from '@/components/ProjectExperienceSection'
 
 const TEXT = 'ArmArch'
 const FONT_SIZE = 'clamp(80px, 16vw, 220px)'
@@ -58,15 +59,18 @@ export default function Hero() {
   // ── KEYFRAME 0.65 -> 0.80: Internal scroll progress for Branch Diagram nodes
   const branchProgress = useTransform(scrollYProgress, [0.65, 0.80], [0, 1])
 
-  // ── KEYFRAME 0.80 -> 0.93: "Design Philosophy" section slides up over Branch Diagram
-  const philosophyY = useTransform(scrollYProgress, [0.80, 0.93], ['100%', '0%'])
+  // ── KEYFRAME 0.80 -> 0.89: "Design Philosophy" section slides up over Branch Diagram
+  const philosophyY = useTransform(scrollYProgress, [0.80, 0.89], ['100%', '0%'])
 
-  // ── KEYFRAME 0.93 -> 1.00: "Numbered Frames" section slides up over Design Philosophy
-  const numberedY = useTransform(scrollYProgress, [0.93, 1.00], ['100%', '0%'])
+  // ── KEYFRAME 0.89 -> 0.95: "Our Process" section slides up over Design Philosophy
+  const numberedY = useTransform(scrollYProgress, [0.89, 0.95], ['100%', '0%'])
+
+  // ── KEYFRAME 0.95 -> 1.00: "Project Experience" section slides up over Our Process
+  const projectY = useTransform(scrollYProgress, [0.95, 1.00], ['100%', '0%'])
 
   return (
-    // Outer scroll track (900vh height pins the viewport for the entire sequence)
-    <div ref={containerRef} className="relative h-[1100vh]">
+    // Outer scroll track (1200vh height pins the viewport for the entire sequence)
+    <div ref={containerRef} className="relative h-[1200vh]">
       {/* Sticky viewport frame - page stays locked here while scrolling */}
       <section
         id="hero"
@@ -177,12 +181,20 @@ export default function Hero() {
           <DesignPhilosophySection />
         </motion.div>
 
-        {/* ── KEYFRAME 0.93 -> 1.00: Full "Our Process" overlay section ───────── */}
+        {/* ── KEYFRAME 0.89 -> 0.95: Full "Our Process" overlay section ───────── */}
         <motion.div
           style={{ y: numberedY }}
           className="absolute inset-0 z-[80] w-full h-full bg-[#f5f4f0] overflow-hidden"
         >
           <OurProcessSection />
+        </motion.div>
+
+        {/* ── KEYFRAME 0.95 -> 1.00: Full "Project Experience" overlay section ── */}
+        <motion.div
+          style={{ y: projectY }}
+          className="absolute inset-0 z-[90] w-full h-full bg-[#f5f4f0] overflow-y-auto"
+        >
+          <ProjectExperienceSection />
         </motion.div>
       </section>
     </div>
