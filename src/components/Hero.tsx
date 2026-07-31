@@ -13,6 +13,7 @@ import ResidentialExperienceSection from '@/components/ResidentialExperienceSect
 import ArtDecoApartmentSection from '@/components/ArtDecoApartmentSection'
 import MediterraneanApartmentSection from '@/components/MediterraneanApartmentSection'
 import ArtDecoNavyRestaurantSection from '@/components/ArtDecoNavyRestaurantSection'
+import ModernGymSection from '@/components/ModernGymSection'
 
 const TEXT = 'ArmArch'
 const FONT_SIZE = 'clamp(80px, 16vw, 220px)'
@@ -60,33 +61,36 @@ export default function Hero() {
   // ── KEYFRAME 0.38 -> 0.46: "Branch Diagram" section slides up over Why Choose Us
   const branchY = useTransform(scrollYProgress, [0.38, 0.46], ['100%', '0%'])
 
-  // ── KEYFRAME 0.46 -> 0.66: Internal scroll progress for Branch Diagram nodes (0.0 -> 1.0)
-  const branchProgress = useTransform(scrollYProgress, [0.46, 0.66], [0, 1])
+  // ── KEYFRAME 0.44 -> 0.62: Internal scroll progress for Branch Diagram nodes (0.0 -> 1.0)
+  const branchProgress = useTransform(scrollYProgress, [0.44, 0.62], [0, 1])
 
-  // ── KEYFRAME 0.66 -> 0.72: "Design Philosophy" section slides up AFTER Branch Diagram completes
-  const philosophyY = useTransform(scrollYProgress, [0.66, 0.72], ['100%', '0%'])
+  // ── KEYFRAME 0.62 -> 0.68: "Design Philosophy" section slides up AFTER Branch Diagram completes
+  const philosophyY = useTransform(scrollYProgress, [0.62, 0.68], ['100%', '0%'])
 
-  // ── KEYFRAME 0.72 -> 0.78: "Our Process" section slides up over Design Philosophy
-  const numberedY = useTransform(scrollYProgress, [0.72, 0.78], ['100%', '0%'])
+  // ── KEYFRAME 0.68 -> 0.74: "Our Process" section slides up over Design Philosophy
+  const numberedY = useTransform(scrollYProgress, [0.68, 0.74], ['100%', '0%'])
 
-  // ── KEYFRAME 0.78 -> 0.83: "Project Experience Commercial" section slides up over Our Process
-  const projectY = useTransform(scrollYProgress, [0.78, 0.83], ['100%', '0%'])
+  // ── KEYFRAME 0.74 -> 0.79: "Project Experience Commercial" section slides up over Our Process
+  const projectY = useTransform(scrollYProgress, [0.74, 0.79], ['100%', '0%'])
 
-  // ── KEYFRAME 0.83 -> 0.88: "Project Experience Villa" section slides up over Commercial
-  const residentialY = useTransform(scrollYProgress, [0.83, 0.88], ['100%', '0%'])
+  // ── KEYFRAME 0.79 -> 0.84: "Project Experience Villa" section slides up over Commercial
+  const residentialY = useTransform(scrollYProgress, [0.79, 0.84], ['100%', '0%'])
 
-  // ── KEYFRAME 0.88 -> 0.92: "Project Experience Art Deco Apartment" section slides up over Villa
-  const artDecoY = useTransform(scrollYProgress, [0.88, 0.92], ['100%', '0%'])
+  // ── KEYFRAME 0.84 -> 0.89: "Project Experience Art Deco Apartment" section slides up over Villa
+  const artDecoY = useTransform(scrollYProgress, [0.84, 0.89], ['100%', '0%'])
 
-  // ── KEYFRAME 0.92 -> 0.96: "Project Experience Mediterranean Apartment" section slides up over Art Deco
-  const mediterraneanY = useTransform(scrollYProgress, [0.92, 0.96], ['100%', '0%'])
+  // ── KEYFRAME 0.89 -> 0.93: "Project Experience Mediterranean Apartment" section slides up over Art Deco
+  const mediterraneanY = useTransform(scrollYProgress, [0.89, 0.93], ['100%', '0%'])
 
-  // ── KEYFRAME 0.96 -> 1.00: "Project Experience Art Deco Navy Restaurant" section slides up over Mediterranean
-  const navyY = useTransform(scrollYProgress, [0.96, 1.00], ['100%', '0%'])
+  // ── KEYFRAME 0.93 -> 0.97: "Project Experience Art Deco Navy Restaurant" section slides up over Mediterranean
+  const navyY = useTransform(scrollYProgress, [0.93, 0.97], ['100%', '0%'])
+
+  // ── KEYFRAME 0.97 -> 1.00: "Project Experience Modern Gym" section slides up over Navy Restaurant
+  const gymY = useTransform(scrollYProgress, [0.97, 1.00], ['100%', '0%'])
 
   return (
-    // Outer scroll track (1700vh height pins the viewport for the entire sequence)
-    <div ref={containerRef} className="relative h-[1700vh]">
+    // Outer scroll track (1800vh height pins the viewport for the entire sequence)
+    <div ref={containerRef} className="relative h-[1800vh]">
       {/* Sticky viewport frame - page stays locked here while scrolling */}
       <section
         id="hero"
@@ -237,12 +241,20 @@ export default function Hero() {
           <MediterraneanApartmentSection />
         </motion.div>
 
-        {/* ── KEYFRAME 0.97 -> 1.00: Full "Project Experience Navy Restaurant" overlay section ── */}
+        {/* ── KEYFRAME 0.93 -> 0.97: Full "Project Experience Navy Restaurant" overlay section ── */}
         <motion.div
           style={{ y: navyY }}
           className="absolute inset-0 z-[130] w-full h-full bg-[#f5f4f0] overflow-y-auto"
         >
           <ArtDecoNavyRestaurantSection />
+        </motion.div>
+
+        {/* ── KEYFRAME 0.97 -> 1.00: Full "Project Experience Modern Gym" overlay section ── */}
+        <motion.div
+          style={{ y: gymY }}
+          className="absolute inset-0 z-[140] w-full h-full bg-[#f5f4f0] overflow-y-auto"
+        >
+          <ModernGymSection />
         </motion.div>
       </section>
     </div>
