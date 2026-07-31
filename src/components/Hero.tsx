@@ -40,54 +40,54 @@ export default function Hero() {
     offset: ['start start', 'end end'],
   })
 
-  // ── KEYFRAME 0.0 -> 0.35: Echo expansion animation ───────────────────────
-  const yUp1 = useTransform(scrollYProgress, [0, 0.35], ['0%', '-20%'])
-  const yUp2 = useTransform(scrollYProgress, [0, 0.35], ['0%', '-40%'])
-  const yUp3 = useTransform(scrollYProgress, [0, 0.35], ['0%', '-60%'])
+  // ── KEYFRAME 0.0 -> 0.08: Echo expansion animation (short, snappy) ────────
+  const yUp1 = useTransform(scrollYProgress, [0, 0.08], ['0%', '-20%'])
+  const yUp2 = useTransform(scrollYProgress, [0, 0.08], ['0%', '-40%'])
+  const yUp3 = useTransform(scrollYProgress, [0, 0.08], ['0%', '-60%'])
 
-  const yDown1 = useTransform(scrollYProgress, [0, 0.35], ['0%', '20%'])
-  const yDown2 = useTransform(scrollYProgress, [0, 0.35], ['0%', '40%'])
-  const yDown3 = useTransform(scrollYProgress, [0, 0.35], ['0%', '60%'])
+  const yDown1 = useTransform(scrollYProgress, [0, 0.08], ['0%', '20%'])
+  const yDown2 = useTransform(scrollYProgress, [0, 0.08], ['0%', '40%'])
+  const yDown3 = useTransform(scrollYProgress, [0, 0.08], ['0%', '60%'])
 
-  const opacity1 = useTransform(scrollYProgress, [0, 0.35], [0, 0.22])
-  const opacity2 = useTransform(scrollYProgress, [0, 0.35], [0, 0.14])
-  const opacity3 = useTransform(scrollYProgress, [0, 0.35], [0, 0.07])
+  const opacity1 = useTransform(scrollYProgress, [0, 0.08], [0, 0.22])
+  const opacity2 = useTransform(scrollYProgress, [0, 0.08], [0, 0.14])
+  const opacity3 = useTransform(scrollYProgress, [0, 0.08], [0, 0.07])
 
-  // ── KEYFRAME 0.16 -> 0.28: "About Us" section slides up
-  const aboutY = useTransform(scrollYProgress, [0.16, 0.28], ['100%', '0%'])
+  // ── KEYFRAME 0.06 -> 0.13: "About Us" section slides up
+  const aboutY = useTransform(scrollYProgress, [0.06, 0.13], ['100%', '0%'])
 
-  // ── KEYFRAME 0.28 -> 0.38: "Why Choose Us" section slides up over About Us
-  const whyY = useTransform(scrollYProgress, [0.28, 0.38], ['100%', '0%'])
+  // ── KEYFRAME 0.13 -> 0.20: "Why Choose Us" section slides up over About Us
+  const whyY = useTransform(scrollYProgress, [0.13, 0.20], ['100%', '0%'])
 
-  // ── KEYFRAME 0.38 -> 0.46: "Branch Diagram" section slides up over Why Choose Us
-  const branchY = useTransform(scrollYProgress, [0.38, 0.46], ['100%', '0%'])
+  // ── KEYFRAME 0.20 -> 0.26: "Branch Diagram" section slides up over Why Choose Us
+  const branchY = useTransform(scrollYProgress, [0.20, 0.26], ['100%', '0%'])
 
-  // ── KEYFRAME 0.44 -> 0.62: Internal scroll progress for Branch Diagram nodes (0.0 -> 1.0)
-  const branchProgress = useTransform(scrollYProgress, [0.44, 0.62], [0, 1])
+  // ── KEYFRAME 0.26 -> 0.44: Internal scroll progress for Branch Diagram nodes (0.0 -> 1.0)
+  const branchProgress = useTransform(scrollYProgress, [0.26, 0.44], [0, 1])
 
-  // ── KEYFRAME 0.62 -> 0.68: "Design Philosophy" section slides up AFTER Branch Diagram completes
-  const philosophyY = useTransform(scrollYProgress, [0.62, 0.68], ['100%', '0%'])
+  // ── KEYFRAME 0.44 -> 0.50: "Design Philosophy" section slides up AFTER Branch Diagram completes
+  const philosophyY = useTransform(scrollYProgress, [0.44, 0.50], ['100%', '0%'])
 
-  // ── KEYFRAME 0.68 -> 0.74: "Our Process" section slides up over Design Philosophy
-  const numberedY = useTransform(scrollYProgress, [0.68, 0.74], ['100%', '0%'])
+  // ── KEYFRAME 0.50 -> 0.56: "Our Process" section slides up over Design Philosophy
+  const numberedY = useTransform(scrollYProgress, [0.50, 0.56], ['100%', '0%'])
 
-  // ── KEYFRAME 0.74 -> 0.79: "Project Experience Commercial" section slides up over Our Process
-  const projectY = useTransform(scrollYProgress, [0.74, 0.79], ['100%', '0%'])
+  // ── KEYFRAME 0.56 -> 0.62: "Project Experience Commercial" section slides up over Our Process
+  const projectY = useTransform(scrollYProgress, [0.56, 0.62], ['100%', '0%'])
 
-  // ── KEYFRAME 0.79 -> 0.84: "Project Experience Villa" section slides up over Commercial
-  const residentialY = useTransform(scrollYProgress, [0.79, 0.84], ['100%', '0%'])
+  // ── KEYFRAME 0.62 -> 0.69: "Project Experience Villa" section slides up over Commercial
+  const residentialY = useTransform(scrollYProgress, [0.62, 0.69], ['100%', '0%'])
 
-  // ── KEYFRAME 0.84 -> 0.89: "Project Experience Art Deco Apartment" section slides up over Villa
-  const artDecoY = useTransform(scrollYProgress, [0.84, 0.89], ['100%', '0%'])
+  // ── KEYFRAME 0.69 -> 0.76: "Project Experience Art Deco Apartment" section slides up over Villa
+  const artDecoY = useTransform(scrollYProgress, [0.69, 0.76], ['100%', '0%'])
 
-  // ── KEYFRAME 0.89 -> 0.93: "Project Experience Mediterranean Apartment" section slides up over Art Deco
-  const mediterraneanY = useTransform(scrollYProgress, [0.89, 0.93], ['100%', '0%'])
+  // ── KEYFRAME 0.76 -> 0.83: "Project Experience Mediterranean Apartment" section slides up over Art Deco
+  const mediterraneanY = useTransform(scrollYProgress, [0.76, 0.83], ['100%', '0%'])
 
-  // ── KEYFRAME 0.93 -> 0.97: "Project Experience Art Deco Navy Restaurant" section slides up over Mediterranean
-  const navyY = useTransform(scrollYProgress, [0.93, 0.97], ['100%', '0%'])
+  // ── KEYFRAME 0.83 -> 0.91: "Project Experience Art Deco Navy Restaurant" section slides up over Mediterranean
+  const navyY = useTransform(scrollYProgress, [0.83, 0.91], ['100%', '0%'])
 
-  // ── KEYFRAME 0.97 -> 1.00: "Project Experience Modern Gym" section slides up over Navy Restaurant
-  const gymY = useTransform(scrollYProgress, [0.97, 1.00], ['100%', '0%'])
+  // ── KEYFRAME 0.91 -> 1.00: "Project Experience Modern Gym" section slides up over Navy Restaurant
+  const gymY = useTransform(scrollYProgress, [0.91, 1.00], ['100%', '0%'])
 
   return (
     // Outer scroll track (1800vh height pins the viewport for the entire sequence)
