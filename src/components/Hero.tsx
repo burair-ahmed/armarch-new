@@ -14,6 +14,7 @@ import ArtDecoApartmentSection from '@/components/ArtDecoApartmentSection'
 import MediterraneanApartmentSection from '@/components/MediterraneanApartmentSection'
 import ArtDecoNavyRestaurantSection from '@/components/ArtDecoNavyRestaurantSection'
 import ModernGymSection from '@/components/ModernGymSection'
+import HeroFloatingImages from '@/components/HeroFloatingImages'
 
 const TEXT = 'ArmArch'
 const FONT_SIZE = 'clamp(80px, 16vw, 220px)'
@@ -107,6 +108,9 @@ export default function Hero() {
             backgroundSize: '256px',
           }}
         />
+
+        {/* Candid Reverse Parallax Floating Images */}
+        <HeroFloatingImages />
 
         {/* Brand Display Text + Echo Stack */}
         <div className="relative w-full flex justify-center items-center select-none" style={{ overflow: 'visible' }}>
