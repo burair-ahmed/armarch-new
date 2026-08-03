@@ -14,6 +14,7 @@ import ArtDecoApartmentSection from '@/components/ArtDecoApartmentSection'
 import MediterraneanApartmentSection from '@/components/MediterraneanApartmentSection'
 import ArtDecoNavyRestaurantSection from '@/components/ArtDecoNavyRestaurantSection'
 import ModernGymSection from '@/components/ModernGymSection'
+import FoundersNoteSection from '@/components/FoundersNoteSection'
 import HeroFloatingImages from '@/components/HeroFloatingImages'
 
 const TEXT = 'ArmArch'
@@ -83,15 +84,18 @@ export default function Hero() {
   // ── KEYFRAME 0.76 -> 0.83: "Project Experience Mediterranean Apartment" section slides up over Art Deco
   const mediterraneanY = useTransform(scrollYProgress, [0.76, 0.83], ['100%', '0%'])
 
-  // ── KEYFRAME 0.83 -> 0.91: "Project Experience Art Deco Navy Restaurant" section slides up over Mediterranean
-  const navyY = useTransform(scrollYProgress, [0.83, 0.91], ['100%', '0%'])
+  // ── KEYFRAME 0.83 -> 0.89: "Project Experience Art Deco Navy Restaurant" section slides up over Mediterranean
+  const navyY = useTransform(scrollYProgress, [0.83, 0.89], ['100%', '0%'])
 
-  // ── KEYFRAME 0.91 -> 1.00: "Project Experience Modern Gym" section slides up over Navy Restaurant
-  const gymY = useTransform(scrollYProgress, [0.91, 1.00], ['100%', '0%'])
+  // ── KEYFRAME 0.89 -> 0.94: "Project Experience Modern Gym" section slides up over Navy Restaurant
+  const gymY = useTransform(scrollYProgress, [0.89, 0.94], ['100%', '0%'])
+
+  // ── KEYFRAME 0.94 -> 1.00: "Founder's Note" section slides up over Modern Gym
+  const foundersNoteY = useTransform(scrollYProgress, [0.94, 1.00], ['100%', '0%'])
 
   return (
-    // Outer scroll track (1800vh height pins the viewport for the entire sequence)
-    <div ref={containerRef} className="relative h-[1800vh]">
+    // Outer scroll track (1900vh height pins the viewport for the entire sequence)
+    <div ref={containerRef} className="relative h-[1900vh]">
       {/* Sticky viewport frame - page stays locked here while scrolling */}
       <section
         id="hero"
@@ -253,12 +257,20 @@ export default function Hero() {
           <ArtDecoNavyRestaurantSection />
         </motion.div>
 
-        {/* ── KEYFRAME 0.97 -> 1.00: Full "Project Experience Modern Gym" overlay section ── */}
+        {/* ── KEYFRAME 0.89 -> 0.94: Full "Project Experience Modern Gym" overlay section ── */}
         <motion.div
           style={{ y: gymY }}
           className="absolute inset-0 z-[140] w-full h-full bg-[#f5f4f0] overflow-y-auto"
         >
           <ModernGymSection />
+        </motion.div>
+
+        {/* ── KEYFRAME 0.94 -> 1.00: Full "Founder's Note" overlay section ── */}
+        <motion.div
+          style={{ y: foundersNoteY }}
+          className="absolute inset-0 z-[150] w-full h-full bg-white overflow-hidden"
+        >
+          <FoundersNoteSection />
         </motion.div>
       </section>
     </div>
