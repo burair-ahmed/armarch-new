@@ -4,72 +4,118 @@ import Image from 'next/image';
 
 export default function FoundersNoteSection() {
   return (
-    <div className="w-full h-full flex items-center justify-center py-6 sm:py-8 lg:py-10 bg-white overflow-hidden">
-      <div className="w-[88%] max-w-[1100px] mx-auto flex flex-row items-end gap-4 sm:gap-6 lg:gap-10 h-full">
+    <div className="w-full h-full bg-white overflow-hidden">
 
-        {/* ── LEFT: Text content ── */}
-        <div className="flex flex-col justify-center flex-1 min-w-0 gap-3 sm:gap-5 h-full">
+      {/* ─── MOBILE layout (< md) ─── */}
+      <div className="md:hidden w-[88%] mx-auto h-full flex flex-col py-6 gap-4">
 
-          {/* Heading */}
+        {/* Text block */}
+        <div className="flex flex-col gap-2 shrink-0">
           <h2
             className="text-[#111111] font-black leading-none tracking-tight"
-            style={{ fontSize: 'clamp(26px, 5vw, 68px)' }}
+            style={{ fontSize: 'clamp(26px, 7vw, 44px)' }}
           >
             Founder&apos;s Note
           </h2>
 
-          {/* Quote + Signature grouped tightly */}
-          <div className="flex flex-col items-start">
-            {/* Quote text */}
+          <p
+            className="text-[#111111] font-black uppercase leading-[1.06]"
+            style={{
+              fontFamily: '"Arial Black", Impact, Arial, sans-serif',
+              fontSize: 'clamp(10px, 3.2vw, 16px)',
+            }}
+          >
+            Architecture is not defined by the structures we create, but by the
+            experiences they inspire. Every line we draw should have a purpose,
+            every space visualized should evoke emotion, and every project
+            should leave a lasting legacy.
+          </p>
+
+          <div className="flex justify-end mt-1">
             <p
-              className="text-[#111111] font-black uppercase leading-[1.04] tracking-[-0.01em]"
+              className="text-[#111111]"
               style={{
-                fontSize: 'clamp(13px, 2.4vw, 34px)',
-                fontFamily: '"Arial Black", "Impact", Arial, sans-serif',
+                fontFamily: '"Brush Script MT", "Dancing Script", cursive',
+                fontSize: 'clamp(16px, 4.5vw, 28px)',
+                lineHeight: 1.2,
               }}
             >
-              Architecture is not defined by the structures we create, but by
-              the experiences they inspire. Every line we draw should have a
-              purpose, every space visualized should evoke emotion, and every
-              project should leave a lasting legacy.
+              Eng. Armash Ashraf
             </p>
-
-            {/* Signature — directly below paragraph, right-aligned to paragraph width */}
-            <div className="w-full flex justify-end mt-1 sm:mt-2">
-              <p
-                className="text-[#111111]"
-                style={{
-                  fontFamily: '"Brush Script MT", "Dancing Script", cursive',
-                  fontSize: 'clamp(20px, 3.2vw, 46px)',
-                  lineHeight: 1.2,
-                }}
-              >
-                Eng. Armash Ashraf
-              </p>
-            </div>
           </div>
-
         </div>
 
-        {/* ── RIGHT: Founder photo, anchored to bottom ── */}
+        {/* Image — fills all remaining space */}
+        <div className="flex-1 relative min-h-0">
+          <Image
+            src="/founder-1.png"
+            alt="Eng. Armash Ashraf — Founder of ArmArch"
+            fill
+            sizes="88vw"
+            className="object-contain object-center"
+            priority
+          />
+        </div>
+      </div>
+
+      {/* ─── DESKTOP layout (≥ md) ─── */}
+      <div className="hidden md:flex w-[88%] max-w-[1100px] mx-auto h-full flex-row items-center gap-8 lg:gap-12 py-8 lg:py-10">
+
+        {/* Text */}
+        <div className="flex-1 min-w-0 flex flex-col gap-4 lg:gap-5">
+          <h2
+            className="text-[#111111] font-black leading-none tracking-tight"
+            style={{ fontSize: 'clamp(28px, 5vw, 68px)' }}
+          >
+            Founder&apos;s Note
+          </h2>
+
+          <p
+            className="text-[#111111] font-black uppercase leading-[1.04]"
+            style={{
+              fontFamily: '"Arial Black", Impact, Arial, sans-serif',
+              fontSize: 'clamp(13px, 2.2vw, 34px)',
+            }}
+          >
+            Architecture is not defined by the structures we create, but by the
+            experiences they inspire. Every line we draw should have a purpose,
+            every space visualized should evoke emotion, and every project
+            should leave a lasting legacy.
+          </p>
+
+          <div className="flex justify-end">
+            <p
+              className="text-[#111111]"
+              style={{
+                fontFamily: '"Brush Script MT", "Dancing Script", cursive',
+                fontSize: 'clamp(20px, 3vw, 46px)',
+                lineHeight: 1.2,
+              }}
+            >
+              Eng. Armash Ashraf
+            </p>
+          </div>
+        </div>
+
+        {/* Photo */}
         <div
-          className="relative flex-shrink-0 self-end"
+          className="relative flex-shrink-0"
           style={{
-            width: 'clamp(160px, 34%, 460px)',
-            height: 'clamp(220px, 88%, 640px)',
+            width: 'clamp(180px, 32vw, 440px)',
+            height: 'clamp(240px, 75%, 600px)',
           }}
         >
           <Image
             src="/founder-1.png"
             alt="Eng. Armash Ashraf — Founder of ArmArch"
             fill
-            sizes="(max-width: 640px) 40vw, 34vw"
-            className="object-contain object-bottom"
+            sizes="32vw"
+            className="object-contain object-center"
             priority
           />
         </div>
-
       </div>
+
     </div>
   );
 }
