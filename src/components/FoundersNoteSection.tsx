@@ -4,25 +4,25 @@ import Image from 'next/image';
 
 export default function FoundersNoteSection() {
   return (
-    <div className="w-full h-full bg-white overflow-hidden">
+    <div className="w-full h-full bg-white overflow-hidden flex items-center justify-center">
 
       {/* ─── MOBILE layout (< md) ─── */}
-      <div className="md:hidden w-[88%] mx-auto h-full flex flex-col py-6 gap-4">
+      <div className="md:hidden w-[90%] max-w-[520px] mx-auto h-full flex flex-col justify-end items-center gap-2.5 pt-8 sm:pt-12 pb-0">
 
-        {/* Text block */}
-        <div className="flex flex-col gap-2 shrink-0">
+        {/* Text block — moved down & scaled up */}
+        <div className="w-full flex flex-col gap-2.5 shrink-0">
           <h2
             className="text-[#111111] font-black leading-none tracking-tight"
-            style={{ fontSize: 'clamp(26px, 7vw, 44px)' }}
+            style={{ fontSize: 'clamp(32px, 10vw, 48px)' }}
           >
             Founder&apos;s Note
           </h2>
 
           <p
-            className="text-[#111111] font-black uppercase leading-[1.06]"
+            className="text-[#111111] font-extrabold uppercase leading-[1.22] tracking-normal"
             style={{
               fontFamily: '"Arial Black", Impact, Arial, sans-serif',
-              fontSize: 'clamp(10px, 3.2vw, 16px)',
+              fontSize: 'clamp(15px, 5.2vw, 22px)',
             }}
           >
             Architecture is not defined by the structures we create, but by the
@@ -31,13 +31,13 @@ export default function FoundersNoteSection() {
             should leave a lasting legacy.
           </p>
 
-          <div className="flex justify-end mt-1">
+          <div className="w-full flex justify-end mt-0.5">
             <p
               className="text-[#111111]"
               style={{
                 fontFamily: '"Brush Script MT", "Dancing Script", cursive',
-                fontSize: 'clamp(16px, 4.5vw, 28px)',
-                lineHeight: 1.2,
+                fontSize: 'clamp(24px, 7vw, 36px)',
+                lineHeight: 1.1,
               }}
             >
               Eng. Armash Ashraf
@@ -45,21 +45,21 @@ export default function FoundersNoteSection() {
           </div>
         </div>
 
-        {/* Image — fills all remaining space */}
-        <div className="flex-1 relative min-h-0">
+        {/* Image — enlarged & kept at bottom */}
+        <div className="w-full h-[500px] sm:h-[500px] relative shrink-0">
           <Image
             src="/founder-1.png"
             alt="Eng. Armash Ashraf — Founder of ArmArch"
             fill
-            sizes="88vw"
-            className="object-contain object-center"
+            sizes="100vw"
+            className="object-contain object-bottom"
             priority
           />
         </div>
       </div>
 
       {/* ─── DESKTOP layout (≥ md) ─── */}
-      <div className="hidden md:flex w-[88%] max-w-[1100px] mx-auto h-full flex-row items-center gap-8 lg:gap-12 py-8 lg:py-10">
+      <div className="hidden md:flex w-[88%] max-w-[1100px] mx-auto h-full flex-row items-center justify-center gap-8 lg:gap-12 py-8 lg:py-10">
 
         {/* Text */}
         <div className="flex-1 min-w-0 flex flex-col gap-4 lg:gap-5">
