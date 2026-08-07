@@ -75,7 +75,7 @@ const SVG_W     = 140
 const SVG_H     = 460
 const GAP_PX    = 8          // positive gap: arc peak(126.5) < card-left(148) by 21.5px
 const CARD_W    = 360
-const NATURAL_W = SVG_W + GAP_PX + CARD_W  // 508px — natural full-size width
+const NATURAL_W = 550  // 508px — natural full-size width
 const END_X     = SVG_W + GAP_PX           // 148 — branch endpoints (SVG overflow:visible)
 
 const CIRCLE_TOP    = { x: 45, y: 40  }
@@ -169,7 +169,7 @@ export default function BranchDiagram({ scrollProgress }: BranchDiagramProps) {
       aria-label="Our Services"
       className="w-full h-full flex items-center justify-center bg-[#f2f2f2] py-4 sm:py-6 overflow-hidden"
     >
-      <div className="w-[94%] max-w-[1240px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.35fr] gap-6 lg:gap-8 items-center">
+      <div className="w-[94%] max-w-[1240px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.35fr] items-center">
 
         {/* ── LEFT COLUMN: Images (top.png & bottom.png) + Heading "Our Services" ── */}
         <div className="flex flex-col items-center justify-center text-center gap-2 sm:gap-3 lg:gap-4">
@@ -209,13 +209,9 @@ export default function BranchDiagram({ scrollProgress }: BranchDiagramProps) {
         {/* RIGHT: Branch diagram — scaled to fit grid column without overflowing viewport */}
         <div
           ref={outerRef}
-          className="w-full flex justify-center py-2 relative"
+          className="w-full flex py-2 relative"
         >
-          {/*
-            Outer wrapper enforces scaled dimensions (scaledW x scaledH) in DOM flow.
-            Inner container is position:absolute so unscaled 508px width NEVER expands parent grid or page layout.
-            transformOrigin: top left scales (508x460) to exactly (scaledW x scaledH).
-          */}
+
           <div
             className="relative overflow-hidden mx-auto"
             style={{
@@ -289,9 +285,9 @@ function ServiceCard({ service, index, visible }: ServiceCardProps) {
         transform: visible ? 'translateX(0)' : 'translateX(-20px)',
       }}
     >
-      {/* Black Pill Card — pl-4 gives white circle breathing room from left curved edge */}
+      {/* Black Pill Card — pl-7 sm:pl-8 gives ample breathing room on left before white circle */}
       <div
-        className="relative w-full bg-[#111111] text-white rounded-full pl-4 sm:pl-5 pr-4 sm:pr-6 py-3 flex items-center gap-2.5 sm:gap-4 shadow-md overflow-hidden group hover:scale-[1.015] transition-transform duration-200"
+        className="relative w-full bg-[#111111] text-white rounded-full pl-7 sm:pl-8 pr-4 sm:pr-6 py-3 flex items-center gap-2.5 sm:gap-4 shadow-md overflow-hidden group hover:scale-[1.015] transition-transform duration-200"
         style={{ minHeight: '80px' }}
       >
         {/* Subtle Crosshatch Pattern Background Overlay */}
@@ -315,8 +311,8 @@ function ServiceCard({ service, index, visible }: ServiceCardProps) {
           <rect width="100%" height="100%" fill={`url(#card-xh-${index})`} />
         </svg>
 
-        {/* White Circle Icon Container */}
-        <div className="relative shrink-0 w-10 h-10 sm:w-13 sm:h-13 lg:w-15 lg:h-15 rounded-full bg-white flex items-center justify-center shadow-inner z-10 ml-8">
+        {/* White Circle Icon Container — increased ml for more space from left edge */}
+        <div className="relative shrink-0 w-10 h-10 sm:w-13 sm:h-13 lg:w-15 lg:h-15 rounded-full bg-white flex items-center justify-center shadow-inner z-10 ml-10 sm:ml-12">
           <div className="transform scale-75 sm:scale-90 lg:scale-100 flex items-center justify-center">
             {service.icon}
           </div>
