@@ -169,12 +169,13 @@ export default function BranchDiagram({ scrollProgress }: BranchDiagramProps) {
       aria-label="Our Services"
       className="w-full h-full flex items-center justify-center bg-[#f2f2f2] py-4 sm:py-6 overflow-hidden"
     >
-      <div className="w-[94%] max-w-[1240px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.35fr] items-center">
+      {/* <div className="w-[94%] max-w-[1240px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.35fr] items-center"> */}
+      <div className="w-[94%] max-w-[1240px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.35fr] gap-8 lg:gap-8 items-center">
 
         {/* ── LEFT COLUMN: Images (top.png & bottom.png) + Heading "Our Services" ── */}
         <div className="flex flex-col items-center justify-center text-center gap-2 sm:gap-3 lg:gap-4">
           {/* Top Images */}
-          <div className="relative w-full max-w-[460px] h-[120px] sm:h-[180px] lg:h-[200px]">
+          <div className="relative w-full max-w-[460px] h-[120px] sm:h-[230px] lg:h-[200px]">
             <Image
               src="/top.png"
               alt="ArmArch Interior & Architecture Renders Top"
@@ -188,13 +189,13 @@ export default function BranchDiagram({ scrollProgress }: BranchDiagramProps) {
           {/* Heading */}
           <h2
             className="font-black text-[#111111] leading-[0.9] tracking-tight my-1 sm:my-2"
-            style={{ fontSize: 'clamp(28px, 5vw, 68px)' }}
+            style={{ fontSize: 'clamp(36px, 5vw, 68px)' }}
           >
             Our Services
           </h2>
 
           {/* Bottom Images */}
-          <div className="relative w-full max-w-[460px] h-[120px] sm:h-[180px] lg:h-[200px]">
+          <div className="relative w-full max-w-[460px] h-[120px] sm:h-[230px] lg:h-[200px]">
             <Image
               src="/bottom.png"
               alt="ArmArch Exterior & Living Renders Bottom"
