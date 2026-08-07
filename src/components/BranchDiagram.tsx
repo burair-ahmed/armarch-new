@@ -69,23 +69,27 @@ const SERVICES = [
   },
 ]
 
-/* Geometry parameters for SVG Branch Arc (Gentle/Sleek Curvature & Anchored Endpoints) */
-const SVG_W = 140
-const SVG_H = 460
+/* Geometry — SVG is always rendered at SVG_W x SVG_H; the whole block
+   scales proportionally via ResizeObserver so connections stay correct. */
+const SVG_W     = 140
+const SVG_H     = 460
+const GAP_PX    = 8          // positive gap: arc peak(126.5) < card-left(148) by 21.5px
+const CARD_W    = 360
+const NATURAL_W = SVG_W + GAP_PX + CARD_W  // 508px — natural full-size width
+const END_X     = SVG_W + GAP_PX           // 148 — branch endpoints (SVG overflow:visible)
 
-// Root endpoints match card 0 and card 3 vertical centers with 80px cards in 460px column
-const CIRCLE_TOP    = { x: 45, y: 40 }
+const CIRCLE_TOP    = { x: 45, y: 40  }
 const CIRCLE_BOTTOM = { x: 45, y: 420 }
-
-// Shallower, elegant arc curve (flatter sweep, less bulge)
 const ARC_PATH = `M ${CIRCLE_TOP.x} ${CIRCLE_TOP.y} Q 208 230 ${CIRCLE_BOTTOM.x} ${CIRCLE_BOTTOM.y}`
 
-// 4 Connector lines — start points computed from Q 208 230 bezier with y(t)=40+380t, x(t)=45+326t(1-t)
+// Branch paths: start ON the bezier arc, end at card left edge (END_X=148)
+// Arc:  y(t)=40+380t,  x(t)=45+326t(1-t)
+// t=0.10  -> (74, 78)   | t=0.334 -> (118,167) | t=0.666 -> (118,293) | t=0.90 -> (74,382)
 const BRANCH_PATHS = [
-  `M 74 78 L 140 40`,    // Line 0: t=0.10 on arc → card 0 center y=40  (tilts UP)
-  `M 118 167 L 140 167`, // Line 1: t=0.334 on arc → card 1 center y=167 (horizontal)
-  `M 118 293 L 140 293`, // Line 2: t=0.666 on arc → card 2 center y=293 (horizontal)
-  `M 74 382 L 140 420`,  // Line 3: t=0.90  on arc → card 3 center y=420 (tilts DOWN)
+  `M 74 78   L ${END_X} 40`,
+  `M 118 167 L ${END_X} 167`,
+  `M 118 293 L ${END_X} 293`,
+  `M 74 382  L ${END_X} 420`,
 ]
 
 const THRESHOLDS = [
@@ -101,7 +105,9 @@ interface BranchDiagramProps {
 
 export default function BranchDiagram({ scrollProgress }: BranchDiagramProps) {
   const containerRef = useRef<HTMLDivElement>(null)
+  const outerRef     = useRef<HTMLDivElement>(null)   // measures available column width
   const [barsVisible, setBarsVisible] = useState<boolean[]>(Array(4).fill(false))
+  const [scale, setScale]             = useState(1)   // proportional scale (<=1)
 
   const staticZero = useMotionValue(0)
   const prog = scrollProgress ?? staticZero
@@ -133,9 +139,7 @@ export default function BranchDiagram({ scrollProgress }: BranchDiagramProps) {
         ;[0, 1, 2, 3].forEach((i) =>
           setTimeout(() => {
             setBarsVisible((prev) => {
-              const n = [...prev]
-              n[i] = true
-              return n
+              const n = [...prev]; n[i] = true; return n
             })
           }, 300 + i * 250)
         )
@@ -145,6 +149,19 @@ export default function BranchDiagram({ scrollProgress }: BranchDiagramProps) {
     if (containerRef.current) obs.observe(containerRef.current)
     return () => obs.disconnect()
   }, [scrollProgress])
+
+  /* ResizeObserver: shrink the branch proportionally if column is narrower than NATURAL_W */
+  useEffect(() => {
+    if (!outerRef.current) return
+    const obs = new ResizeObserver(([entry]) => {
+      setScale(Math.min(1, entry.contentRect.width / NATURAL_W))
+    })
+    obs.observe(outerRef.current)
+    return () => obs.disconnect()
+  }, [])
+
+  const scaledW = Math.round(NATURAL_W * scale)  // layout width after scaling
+  const scaledH = Math.round(SVG_H * scale)      // layout height after scaling
 
   return (
     <section
@@ -189,77 +206,67 @@ export default function BranchDiagram({ scrollProgress }: BranchDiagramProps) {
           </div>
         </div>
 
-        {/* ── RIGHT COLUMN: Branch SVG Arc + 4 Service Cards (EXACT SAME LAYOUT ON ALL DEVICES) ── */}
-        <div className="w-full flex items-center justify-center overflow-x-auto py-2">
-          
-          <div className="flex items-center w-full min-w-[340px] max-w-[620px] relative">
-            
-            {/* SVG Connector Arc */}
-            <svg
-              viewBox={`0 0 ${SVG_W} ${SVG_H}`}
-              width={SVG_W}
-              height={SVG_H}
-              className="flex-shrink-0 pointer-events-none select-none z-10 -mr-5 sm:-mr-6 w-[80px] sm:w-[120px] md:w-[140px]"
-              style={{ overflow: 'visible' }}
-              aria-hidden="true"
+        {/* RIGHT: Branch diagram — scaled to fit grid column without overflowing viewport */}
+        <div
+          ref={outerRef}
+          className="w-full flex justify-center py-2 relative"
+        >
+          {/*
+            Outer wrapper enforces scaled dimensions (scaledW x scaledH) in DOM flow.
+            Inner container is position:absolute so unscaled 508px width NEVER expands parent grid or page layout.
+            transformOrigin: top left scales (508x460) to exactly (scaledW x scaledH).
+          */}
+          <div
+            className="relative overflow-hidden mx-auto"
+            style={{
+              width: scaledW,
+              height: scaledH,
+            }}
+          >
+            <div
+              className="flex items-center"
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: NATURAL_W,
+                height: SVG_H,
+                transform: `scale(${scale})`,
+                transformOrigin: 'top left',
+              }}
             >
-              {/* Top Root Node Circle */}
-              <motion.circle
-                cx={CIRCLE_TOP.x}
-                cy={CIRCLE_TOP.y}
-                r={8}
-                fill="#111111"
-                style={{ opacity: rootOpacity }}
-              />
-
-              {/* Bottom Root Node Circle */}
-              <motion.circle
-                cx={CIRCLE_BOTTOM.x}
-                cy={CIRCLE_BOTTOM.y}
-                r={8}
-                fill="#111111"
-                style={{ opacity: rootOpacity }}
-              />
-
-              {/* Gentle Semi-Circular Arc Path */}
-              <motion.path
-                d={ARC_PATH}
-                fill="none"
-                stroke="#111111"
-                strokeWidth={2.2}
-                strokeLinecap="round"
-                style={{ pathLength: arcPathLength }}
-              />
-
-              {/* 4 Branch Connector Lines */}
-              {BRANCH_PATHS.map((d, i) => (
+              {/* SVG arc + branch lines (overflow:visible lets lines reach END_X=148) */}
+              <svg
+                viewBox={`0 0 ${SVG_W} ${SVG_H}`}
+                width={SVG_W}
+                height={SVG_H}
+                className="flex-shrink-0 pointer-events-none select-none"
+                style={{ overflow: 'visible', marginRight: GAP_PX }}
+                aria-hidden="true"
+              >
+                <motion.circle cx={CIRCLE_TOP.x} cy={CIRCLE_TOP.y} r={8} fill="#111111" style={{ opacity: rootOpacity }} />
+                <motion.circle cx={CIRCLE_BOTTOM.x} cy={CIRCLE_BOTTOM.y} r={8} fill="#111111" style={{ opacity: rootOpacity }} />
                 <motion.path
-                  key={i}
-                  d={d}
+                  d={ARC_PATH}
                   fill="none"
                   stroke="#111111"
                   strokeWidth={2.2}
-                  style={{
-                    pathLength: lineMotions[i],
-                  }}
+                  strokeLinecap="round"
+                  style={{ pathLength: arcPathLength }}
                 />
-              ))}
-            </svg>
+                {BRANCH_PATHS.map((d, i) => (
+                  <motion.path key={i} d={d} fill="none" stroke="#111111" strokeWidth={2.2} style={{ pathLength: lineMotions[i] }} />
+                ))}
+              </svg>
 
-            {/* 4 Cards Column — height locked to SVG_H so card centers align with branch endpoints */}
-            <div className="flex flex-col justify-between flex-1" style={{ height: SVG_H }}>
-              {SERVICES.map((service, index) => (
-                <ServiceCard
-                  key={index}
-                  service={service}
-                  index={index}
-                  visible={barsVisible[index]}
-                />
-              ))}
+              {/* Cards column: fixed CARD_W x SVG_H — card centres at y=40,167,293,420 */}
+              <div className="flex flex-col justify-between" style={{ width: CARD_W, height: SVG_H }}>
+                {SERVICES.map((service, index) => (
+                  <ServiceCard key={index} service={service} index={index} visible={barsVisible[index]} />
+                ))}
+              </div>
             </div>
-
           </div>
-
         </div>
 
       </div>
