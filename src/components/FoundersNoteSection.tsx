@@ -32,8 +32,11 @@ export default function FoundersNoteSection() {
           </p>
 
           <div className="w-full flex justify-end mt-0.5">
-            <p
-              className="text-[#111111]"
+            <a
+              href="https://www.linkedin.com/in/armash-ashraf-5839381a0/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#111111] hover:text-[#c8a96e] transition-colors"
               style={{
                 fontFamily: '"Brush Script MT", "Dancing Script", cursive',
                 fontSize: 'clamp(24px, 7vw, 36px)',
@@ -41,7 +44,7 @@ export default function FoundersNoteSection() {
               }}
             >
               Eng. Armash Ashraf
-            </p>
+            </a>
           </div>
         </div>
 
@@ -84,8 +87,11 @@ export default function FoundersNoteSection() {
           </p>
 
           <div className="flex justify-end">
-            <p
-              className="text-[#111111]"
+            <a
+              href="https://www.linkedin.com/in/armash-ashraf-5839381a0/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#111111] hover:text-[#c8a96e] transition-colors"
               style={{
                 fontFamily: '"Brush Script MT", "Dancing Script", cursive',
                 fontSize: 'clamp(20px, 3vw, 46px)',
@@ -93,7 +99,7 @@ export default function FoundersNoteSection() {
               }}
             >
               Eng. Armash Ashraf
-            </p>
+            </a>
           </div>
         </div>
 

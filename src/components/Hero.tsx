@@ -2,6 +2,7 @@
 
 import { useRef } from 'react'
 import { useScroll, useTransform, motion } from 'framer-motion'
+import { ChevronDown } from 'lucide-react'
 import AboutSection from '@/components/AboutSection'
 import DesignPhilosophySection from '@/components/DesignPhilosophySection'
 import WhyChooseUsSection from '@/components/WhyChooseUsSection'
@@ -16,6 +17,7 @@ import ArtDecoNavyRestaurantSection from '@/components/ArtDecoNavyRestaurantSect
 import ModernGymSection from '@/components/ModernGymSection'
 import FoundersNoteSection from '@/components/FoundersNoteSection'
 import HeroFloatingImages from '@/components/HeroFloatingImages'
+import SectionNav from './SectionNav'
 
 const TEXT = 'ArmArch'
 const FONT_SIZE = 'clamp(80px, 16vw, 220px)'
@@ -164,7 +166,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Vertical scroll indicator */}
+        {/* ── Vertical scroll indicator (right side) ── */}
         <div
           aria-hidden="true"
           className="absolute bottom-10 right-8 flex flex-col items-center gap-2"
@@ -176,6 +178,36 @@ export default function Hero() {
             <div className="absolute top-0 left-0 w-full h-1/2 bg-[var(--accent)] animate-scroll-line" />
           </div>
         </div>
+
+        {/* ── Centered bottom "Scroll Down" animated arrow ── */}
+        <motion.div
+          aria-hidden="true"
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 select-none z-[5]"
+        >
+          <span
+            className="text-[11px] uppercase tracking-[0.35em] font-bold"
+            style={{ color: '#111111' }}
+          >
+            Scroll Down
+          </span>
+          {/* Bouncing chevron arrows */}
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 1.3, ease: 'easeInOut' }}
+          >
+            <ChevronDown className="w-6 h-6 text-[#111111] stroke-[2.5]" />
+          </motion.div>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 1.3, ease: 'easeInOut', delay: 0.2 }}
+            style={{ marginTop: '-10px' }}
+          >
+            <ChevronDown className="w-6 h-6 text-[#111111] stroke-[2.5] opacity-40" />
+          </motion.div>
+        </motion.div>
 
         {/* ── KEYFRAME 0.20 -> 0.35: Full "About Us" overlay section ────────────── */}
         <motion.div

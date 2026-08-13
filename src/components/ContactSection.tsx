@@ -1,23 +1,40 @@
 'use client'
 
 import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Phone, Mail, MapPin, Clock, ChevronDown, ArrowRight, Check } from 'lucide-react'
 
 export default function ContactSection() {
   const [submitted, setSubmitted] = useState(false)
   const [formData, setFormData] = useState({
-    name: '',
+    fullName: '',
     email: '',
     phone: '',
-    projectType: 'Architectural Design',
+    projectType: 'architectural-design',
     message: '',
   })
+
+  // Track focused fields for floating label animation state
+  const [focused, setFocused] = useState<{ [key: string]: boolean }>({})
+
+  const handleFocus = (field: string) => setFocused((prev) => ({ ...prev, [field]: true }))
+  const handleBlur = (field: string, value: string) => {
+    if (!value) setFocused((prev) => ({ ...prev, [field]: false }))
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitted(true)
     setTimeout(() => {
       setSubmitted(false)
-      setFormData({ name: '', email: '', phone: '', projectType: 'Architectural Design', message: '' })
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        projectType: 'architectural-design',
+        message: '',
+      })
+      setFocused({})
     }, 4000)
   }
 
@@ -25,260 +42,465 @@ export default function ContactSection() {
     <section
       id="contact"
       aria-label="Contact Us"
-      className="w-full min-h-screen bg-[#111111] text-white py-28 sm:py-36 lg:py-40 flex items-center justify-center relative overflow-hidden"
+      className="w-full relative overflow-hidden"
+      style={{
+        backgroundColor: '#EDE9E3',
+        color: '#1a1a1a',
+        borderTop: '1px solid rgba(26, 26, 26, 0.12)',
+        paddingTop: '110px',
+        paddingBottom: '110px',
+      }}
     >
-      {/* Subtle Crosshatch Pattern Background Overlay */}
+      {/* Subtle Hairline Crosshatch Overlay */}
       <svg
-        className="absolute inset-0 w-full h-full pointer-events-none opacity-10"
+        className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.05]"
         aria-hidden="true"
         preserveAspectRatio="xMidYMid slice"
       >
         <defs>
           <pattern
-            id="contact-grid-pattern"
+            id="contact-grid-pattern-cream"
             patternUnits="userSpaceOnUse"
-            width="30"
-            height="30"
+            width="36"
+            height="36"
             patternTransform="rotate(45 0 0)"
           >
-            <line x1="15" y1="0" x2="15" y2="30" stroke="#ffffff" strokeWidth="1" />
-            <line x1="0" y1="15" x2="30" y2="15" stroke="#ffffff" strokeWidth="1" />
+            <line x1="18" y1="0" x2="18" y2="36" stroke="#1a1a1a" strokeWidth="1" />
+            <line x1="0" y1="18" x2="36" y2="18" stroke="#1a1a1a" strokeWidth="1" />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#contact-grid-pattern)" />
+        <rect width="100%" height="100%" fill="url(#contact-grid-pattern-cream)" />
       </svg>
 
-      {/* Main Container - Horizontally & Vertically Centered with generous top/bottom space */}
-      <div className="w-[88%] sm:w-[84%] max-w-[1240px] mx-auto flex items-center justify-center relative z-10 px-4 sm:px-6">
+      {/* Main Container with 88% width, max 1200px, 0 auto centering, and 30px side padding */}
+      <div
+        className="relative z-10"
+        style={{
+          maxWidth: '1200px',
+          width: '88%',
+          margin: '0 auto',
+          paddingLeft: '30px',
+          paddingRight: '30px',
+        }}
+      >
 
-        {/* 2-Column Layout with Equal Height Matching */}
-        <div className="w-full grid grid-cols-1 lg:grid-cols-2 items-stretch gap-12 sm:gap-14 lg:gap-16">
-
-          {/* ── FIRST COLUMN: All Content (Header + Info + Quote) ── */}
-          <div className="flex flex-col justify-between gap-8 h-full">
-
-            {/* Top: Section Header */}
-            <div className="flex flex-col items-start gap-3">
-              <span className="text-xs sm:text-sm font-semibold tracking-[0.25em] text-gray-400 uppercase">
-                Get In Touch
-              </span>
-              <h2
-                className="font-black text-white leading-[0.95] tracking-tight"
-                style={{ fontSize: 'clamp(32px, 5.2vw, 60px)' }}
-              >
-                Let&apos;s Build Something<br className="hidden sm:inline" /> Timeless.
-              </h2>
-              <p className="text-gray-400 text-sm sm:text-base mt-1 font-normal leading-relaxed">
-                Have a project in mind or need expert architectural &amp; interior design guidance? Reach out to our studio today to discuss your vision.
-              </p>
-            </div>
-
-            {/* Middle: Contact Details Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 my-2">
-
-              {/* Phone / WhatsApp */}
-              <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 text-white">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-xs uppercase tracking-wider text-gray-400 font-medium mb-0.5">Phone / WhatsApp</h4>
-                  <a href="tel:+97141234567" className="text-sm sm:text-base font-bold text-white hover:underline block leading-tight">
-                    +971 4 123 4567
-                  </a>
-                  <a href="tel:+923001234567" className="text-xs sm:text-sm text-gray-300 hover:underline block mt-0.5">
-                    +92 300 123 4567
-                  </a>
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 text-white">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                    <polyline points="22,6 12,13 2,6" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-xs uppercase tracking-wider text-gray-400 font-medium mb-0.5">Email Inquiry</h4>
-                  <a href="mailto:contact@armarch.com" className="text-sm sm:text-base font-bold text-white hover:underline block leading-tight">
-                    contact@armarch.com
-                  </a>
-                  <a href="mailto:info@armarch.com" className="text-xs sm:text-sm text-gray-300 hover:underline block mt-0.5">
-                    info@armarch.com
-                  </a>
-                </div>
-              </div>
-
-              {/* Studio Location */}
-              <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 text-white">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-xs uppercase tracking-wider text-gray-400 font-medium mb-0.5">Studio Location</h4>
-                  <p className="text-xs sm:text-sm font-semibold text-white leading-snug">
-                    ArmArch Studio, Boulevard Plaza
-                  </p>
-                  <p className="text-[11px] sm:text-xs text-gray-400 mt-0.5">
-                    Dubai, UAE &bull; Lahore, PK
-                  </p>
-                </div>
-              </div>
-
-              {/* Working Hours */}
-              <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 text-white">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 6 12 12 16 14" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-xs uppercase tracking-wider text-gray-400 font-medium mb-0.5">Working Hours</h4>
-                  <p className="text-xs sm:text-sm font-semibold text-white leading-snug">
-                    Mon &ndash; Sat: 9:00 AM &ndash; 6:00 PM
-                  </p>
-                  <p className="text-[11px] text-gray-400 mt-0.5">Sun: By Appointment</p>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Bottom: Founder Quote Note */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm mt-auto">
-              <p className="text-xs sm:text-sm text-gray-300 leading-relaxed font-normal italic">
-                &ldquo;Architecture is not defined by the height of a building, but by the depth of its concept.&rdquo;
-              </p>
-              <span className="block text-xs font-semibold text-white mt-2 not-italic">&mdash; Eng. Armash Ashraf</span>
-            </div>
-
+        {/* Section Header Badge & Bold Uppercase Title */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          style={{ marginBottom: '56px' }}
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <span className="w-8 h-[1px] bg-[#1a1a1a]" />
+            <span
+              className="text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase"
+              style={{ color: '#888880' }}
+            >
+              05. Contact Us
+            </span>
           </div>
 
-          {/* ── SECOND COLUMN: Contact Form (Matching Height) ── */}
-          <div className="bg-white/5 border border-white/10 rounded-3xl p-6 sm:p-8 lg:p-10 backdrop-blur-md h-full flex flex-col justify-between">
-            <form onSubmit={handleSubmit} className="flex flex-col justify-between h-full gap-5">
+          <h2
+            className="font-black uppercase leading-[0.95] tracking-tight max-w-[850px]"
+            style={{
+              fontSize: 'clamp(36px, 5.5vw, 68px)',
+              color: '#1a1a1a',
+              letterSpacing: '-0.03em',
+            }}
+          >
+            Let&apos;s Build<br />
+            Something<br />
+            Timeless.
+          </h2>
+        </motion.div>
 
-              <div className="flex flex-col gap-5">
-                <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
-                  Send Us a Message
-                </h3>
+        {/* Asymmetric Desktop 55/45 Split Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
 
-                {/* Full Name */}
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-gray-300">
-                    Full Name <span className="text-red-400">*</span>
-                  </label>
-                  <input
-                    id="name"
-                    type="text"
-                    required
-                    placeholder="e.g. Sarah Jenkins"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all"
-                  />
+          {/* ── LEFT COLUMN: Studio Info & Cards (~55% width -> lg:col-span-7) ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="lg:col-span-7 flex flex-col justify-between gap-10"
+          >
+            <p className="text-base sm:text-lg font-light leading-relaxed max-w-[620px]" style={{ color: '#444440' }}>
+              Have a project in mind or require specialized architectural, interior design, or CGI rendering consultancy? Connect with our studio teams in Dubai and Lahore.
+            </p>
+
+            {/* Studio Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+              {/* Dubai Studio Card */}
+              <div
+                className="rounded-2xl transition-all duration-300 group"
+                style={{
+                  backgroundColor: '#F4F0EA',
+                  border: '1px solid rgba(26, 26, 26, 0.12)',
+                  padding: '32px 28px',
+                }}
+              >
+                <div className="flex items-center justify-between mb-6 pb-3" style={{ borderBottom: '1px solid rgba(26, 26, 26, 0.1)' }}>
+                  <h3
+                    className="text-sm font-bold tracking-wider uppercase"
+                    style={{ color: '#1a1a1a' }}
+                  >
+                    Dubai Studio
+                  </h3>
+                  <span
+                    className="text-[10px] font-semibold tracking-widest px-2.5 py-1 rounded-full uppercase"
+                    style={{ backgroundColor: 'rgba(26, 26, 26, 0.08)', color: '#1a1a1a' }}
+                  >
+                    UAE
+                  </span>
                 </div>
 
-                {/* Email & Phone Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex flex-col gap-1.5">
-                    <label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-gray-300">
-                      Email Address <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      required
-                      placeholder="sarah@example.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all"
-                    />
-                  </div>
+                <ul className="space-y-4 text-xs sm:text-sm font-light" style={{ color: '#444440' }}>
+                  {/* Phone */}
+                  <li className="flex items-center gap-3">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
+                    >
+                      <Phone className="w-4 h-4" style={{ color: '#1a1a1a' }} />
+                    </div>
+                    <a href="tel:+97141234567" className="font-medium hover:opacity-50 transition-opacity" style={{ color: '#1a1a1a' }}>
+                      +971 4 123 4567
+                    </a>
+                  </li>
 
-                  <div className="flex flex-col gap-1.5">
-                    <label htmlFor="phone" className="text-xs font-semibold uppercase tracking-wider text-gray-300">
-                      Phone Number
-                    </label>
-                    <input
-                      id="phone"
-                      type="tel"
-                      placeholder="+971 50 123 4567"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all"
-                    />
-                  </div>
+                  {/* Mail */}
+                  <li className="flex items-center gap-3">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
+                    >
+                      <Mail className="w-4 h-4" style={{ color: '#1a1a1a' }} />
+                    </div>
+                    <a href="mailto:info@armarchengineering.com" className="font-medium hover:opacity-50 transition-opacity" style={{ color: '#1a1a1a' }}>
+                      info@armarchengineering.com
+                    </a>
+                  </li>
+
+                  {/* Map Pin */}
+                  <li className="flex items-start gap-3">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5"
+                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
+                    >
+                      <MapPin className="w-4 h-4" style={{ color: '#1a1a1a' }} />
+                    </div>
+                    <span className="leading-snug" style={{ color: '#555550' }}>
+                      ArmArch Studio, Boulevard Plaza, Downtown Dubai, UAE
+                    </span>
+                  </li>
+
+                  {/* Clock */}
+                  <li className="flex items-center gap-3">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
+                    >
+                      <Clock className="w-4 h-4" style={{ color: '#1a1a1a' }} />
+                    </div>
+                    <span style={{ color: '#555550' }}>Mon &ndash; Sat: 9:00 AM &ndash; 6:00 PM</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Lahore Studio Card */}
+              <div
+                className="rounded-2xl transition-all duration-300 group"
+                style={{
+                  backgroundColor: '#F4F0EA',
+                  border: '1px solid rgba(26, 26, 26, 0.12)',
+                  padding: '32px 28px',
+                }}
+              >
+                <div className="flex items-center justify-between mb-6 pb-3" style={{ borderBottom: '1px solid rgba(26, 26, 26, 0.1)' }}>
+                  <h3
+                    className="text-sm font-bold tracking-wider uppercase"
+                    style={{ color: '#1a1a1a' }}
+                  >
+                    Lahore Studio
+                  </h3>
+                  <span
+                    className="text-[10px] font-semibold tracking-widest px-2.5 py-1 rounded-full uppercase"
+                    style={{ backgroundColor: 'rgba(26, 26, 26, 0.08)', color: '#1a1a1a' }}
+                  >
+                    PK
+                  </span>
+                </div>
+
+                <ul className="space-y-4 text-xs sm:text-sm font-light" style={{ color: '#444440' }}>
+                  {/* Phone */}
+                  <li className="flex items-center gap-3">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
+                    >
+                      <Phone className="w-4 h-4" style={{ color: '#1a1a1a' }} />
+                    </div>
+                    <a href="tel:+923001234567" className="font-medium hover:opacity-50 transition-opacity" style={{ color: '#1a1a1a' }}>
+                      +92 300 123 4567
+                    </a>
+                  </li>
+
+                  {/* Mail */}
+                  <li className="flex items-center gap-3">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
+                    >
+                      <Mail className="w-4 h-4" style={{ color: '#1a1a1a' }} />
+                    </div>
+                    <a href="mailto:info@armarchengineering.com" className="font-medium hover:opacity-50 transition-opacity" style={{ color: '#1a1a1a' }}>
+                      info@armarchengineering.com
+                    </a>
+                  </li>
+
+                  {/* Map Pin */}
+                  <li className="flex items-start gap-3">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5"
+                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
+                    >
+                      <MapPin className="w-4 h-4" style={{ color: '#1a1a1a' }} />
+                    </div>
+                    <span className="leading-snug" style={{ color: '#555550' }}>
+                      ArmArch Studio, Gulberg III, Lahore, Pakistan
+                    </span>
+                  </li>
+
+                  {/* Clock */}
+                  <li className="flex items-center gap-3">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
+                    >
+                      <Clock className="w-4 h-4" style={{ color: '#1a1a1a' }} />
+                    </div>
+                    <span style={{ color: '#555550' }}>Mon &ndash; Sat: 9:00 AM &ndash; 6:00 PM</span>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+
+            {/* Small Elegant Quote Accent */}
+            <div className="pl-6 py-2 my-2" style={{ borderLeft: '2px solid #1a1a1a' }}>
+              <p className="text-sm sm:text-base font-light italic leading-relaxed" style={{ color: '#444440' }}>
+                &ldquo;Architecture is not defined by the height of a building, but by the depth of its concept.&rdquo;
+              </p>
+              <a
+                href="https://www.linkedin.com/in/armash-ashraf-5839381a0/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-xs tracking-wider uppercase block mt-1.5 hover:opacity-50 transition-opacity"
+                style={{ color: '#1a1a1a' }}
+              >
+                &mdash; Eng. Armash Ashraf
+              </a>
+            </div>
+
+          </motion.div>
+
+          {/* ── RIGHT COLUMN: Inquiry Form (~45% width -> lg:col-span-5) ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-5 rounded-2xl h-full flex flex-col justify-between shadow-sm"
+            style={{
+              backgroundColor: '#F4F0EA',
+              border: '1px solid rgba(26, 26, 26, 0.12)',
+              padding: '56px 44px',
+              minHeight: '640px',
+            }}
+          >
+            <form onSubmit={handleSubmit} className="space-y-10 flex flex-col justify-between h-full flex-1">
+              
+              <h3
+                className="text-xl sm:text-2xl font-black tracking-tight pb-4 uppercase"
+                style={{ color: '#1a1a1a', borderBottom: '1px solid rgba(26, 26, 26, 0.12)' }}
+              >
+                Inquiry Form
+              </h3>
+
+              {/* Full Name Input */}
+              <div className="relative group">
+                <input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  required
+                  value={formData.fullName}
+                  onFocus={() => handleFocus('fullName')}
+                  onBlur={(e) => handleBlur('fullName', e.target.value)}
+                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                  className="w-full bg-transparent text-base pt-6 pb-3 focus:outline-none transition-colors peer"
+                  style={{
+                    color: '#1a1a1a',
+                    borderBottom: '1px solid rgba(26, 26, 26, 0.22)',
+                  }}
+                />
+                <label
+                  htmlFor="fullName"
+                  className={`absolute left-0 transition-all duration-200 pointer-events-none text-xs font-semibold uppercase tracking-wider ${
+                    focused.fullName || formData.fullName
+                      ? 'top-0 text-[#1a1a1a]'
+                      : 'top-5 text-[#888880] peer-focus:top-0 peer-focus:text-[#1a1a1a]'
+                  }`}
+                >
+                  Full Name <span style={{ color: '#1a1a1a' }}>*</span>
+                </label>
+              </div>
+
+              {/* Email Address Input */}
+              <div className="relative group">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onFocus={() => handleFocus('email')}
+                  onBlur={(e) => handleBlur('email', e.target.value)}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full bg-transparent text-base pt-6 pb-3 focus:outline-none transition-colors peer"
+                  style={{
+                    color: '#1a1a1a',
+                    borderBottom: '1px solid rgba(26, 26, 26, 0.22)',
+                  }}
+                />
+                <label
+                  htmlFor="email"
+                  className={`absolute left-0 transition-all duration-200 pointer-events-none text-xs font-semibold uppercase tracking-wider ${
+                    focused.email || formData.email
+                      ? 'top-0 text-[#1a1a1a]'
+                      : 'top-5 text-[#888880] peer-focus:top-0 peer-focus:text-[#1a1a1a]'
+                  }`}
+                >
+                  Email Address <span style={{ color: '#1a1a1a' }}>*</span>
+                </label>
+              </div>
+
+              {/* Phone & Project Type Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                {/* Phone */}
+                <div className="relative group">
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onFocus={() => handleFocus('phone')}
+                    onBlur={(e) => handleBlur('phone', e.target.value)}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full bg-transparent text-base pt-6 pb-3 focus:outline-none transition-colors peer"
+                    style={{
+                      color: '#1a1a1a',
+                      borderBottom: '1px solid rgba(26, 26, 26, 0.22)',
+                    }}
+                  />
+                  <label
+                    htmlFor="phone"
+                    className={`absolute left-0 transition-all duration-200 pointer-events-none text-xs font-semibold uppercase tracking-wider ${
+                      focused.phone || formData.phone
+                        ? 'top-0 text-[#1a1a1a]'
+                        : 'top-5 text-[#888880] peer-focus:top-0 peer-focus:text-[#1a1a1a]'
+                    }`}
+                  >
+                    Phone Number
+                  </label>
                 </div>
 
                 {/* Project Type */}
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="projectType" className="text-xs font-semibold uppercase tracking-wider text-gray-300">
+                <div className="relative group flex flex-col justify-end">
+                  <label htmlFor="projectType" className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: '#1a1a1a' }}>
                     Project Type
                   </label>
                   <select
                     id="projectType"
+                    name="projectType"
                     value={formData.projectType}
                     onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                    className="w-full bg-[#1c1c1c] border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all"
+                    className="w-full bg-transparent text-base pb-3 focus:outline-none transition-colors appearance-none cursor-pointer pr-6 font-medium"
+                    style={{
+                      color: '#1a1a1a',
+                      borderBottom: '1px solid rgba(26, 26, 26, 0.22)',
+                    }}
                   >
-                    <option value="Architectural Design">Architectural Design</option>
-                    <option value="Interior Design">Interior Design</option>
-                    <option value="Visualization">Visualization &amp; Renders</option>
-                    <option value="Design Consultancy">Design Consultancy</option>
-                    <option value="Other">Other Inquiry</option>
+                    <option value="architectural-design" className="bg-[#F4F0EA] text-[#1a1a1a]">Architectural Design</option>
+                    <option value="interior-design" className="bg-[#F4F0EA] text-[#1a1a1a]">Interior Design</option>
+                    <option value="visualization" className="bg-[#F4F0EA] text-[#1a1a1a]">Visualization &amp; Renders</option>
+                    <option value="consultancy" className="bg-[#F4F0EA] text-[#1a1a1a]">Consultancy</option>
+                    <option value="other" className="bg-[#F4F0EA] text-[#1a1a1a]">Other Inquiry</option>
                   </select>
-                </div>
-
-                {/* Message */}
-                <div className="flex flex-col gap-1.5 flex-1">
-                  <label htmlFor="message" className="text-xs font-semibold uppercase tracking-wider text-gray-300">
-                    Project Details / Message <span className="text-red-400">*</span>
-                  </label>
-                  <textarea
-                    id="message"
-                    required
-                    rows={4}
-                    placeholder="Tell us about your space, timeline, and requirements..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all resize-none flex-1 min-h-[100px]"
-                  />
+                  <div className="pointer-events-none absolute right-0 bottom-4" style={{ color: '#1a1a1a' }}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
                 </div>
               </div>
 
-              {/* Submit Button */}
+              {/* Message Input — enlarged height */}
+              <div className="relative group pt-2">
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows={4}
+                  value={formData.message}
+                  onFocus={() => handleFocus('message')}
+                  onBlur={(e) => handleBlur('message', e.target.value)}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full bg-transparent text-base pt-6 pb-3 focus:outline-none transition-colors resize-none peer"
+                  style={{
+                    color: '#1a1a1a',
+                    borderBottom: '1px solid rgba(26, 26, 26, 0.22)',
+                  }}
+                />
+                <label
+                  htmlFor="message"
+                  className={`absolute left-0 transition-all duration-200 pointer-events-none text-xs font-semibold uppercase tracking-wider ${
+                    focused.message || formData.message
+                      ? 'top-0 text-[#1a1a1a]'
+                      : 'top-5 text-[#888880] peer-focus:top-0 peer-focus:text-[#1a1a1a]'
+                  }`}
+                >
+                  Project Details / Message <span style={{ color: '#1a1a1a' }}>*</span>
+                </label>
+              </div>
+
+              {/* Prominent Submit Button */}
               <button
                 type="submit"
                 disabled={submitted}
-                className="w-full bg-white text-[#111111] hover:bg-gray-200 font-extrabold text-sm py-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg disabled:opacity-80 cursor-pointer mt-4 shrink-0"
+                className="w-full mt-6 font-black text-xs uppercase tracking-[0.25em] py-5 px-8 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-xl active:scale-[0.99] disabled:opacity-80 cursor-pointer group"
+                style={{
+                  backgroundColor: '#1a1a1a',
+                  color: '#EDE9E3',
+                }}
               >
                 {submitted ? (
                   <>
-                    <svg className="w-5 h-5 text-green-600 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
-                    </svg>
+                    <Check className="w-5 h-5 text-green-400 animate-bounce" />
                     <span>Message Sent Successfully!</span>
                   </>
                 ) : (
                   <>
                     <span>Submit Inquiry</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
+                    <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" />
                   </>
                 )}
               </button>
 
             </form>
-          </div>
+          </motion.div>
 
         </div>
 
