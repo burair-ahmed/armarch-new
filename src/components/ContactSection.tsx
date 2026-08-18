@@ -47,8 +47,8 @@ export default function ContactSection() {
         backgroundColor: '#EDE9E3',
         color: '#1a1a1a',
         borderTop: '1px solid rgba(26, 26, 26, 0.12)',
-        paddingTop: '110px',
-        paddingBottom: '110px',
+        paddingTop: '50px',
+        paddingBottom: '50px',
       }}
     >
       {/* Subtle Hairline Crosshatch Overlay */}
@@ -125,169 +125,55 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-7 flex flex-col justify-between gap-10"
+            className="lg:col-span-7 flex flex-col justify-start gap-6 sm:gap-8"
           >
-            <p className="text-base sm:text-lg font-light leading-relaxed max-w-[620px]" style={{ color: '#444440' }}>
-              Have a project in mind or require specialized architectural, interior design, or CGI rendering consultancy? Connect with our studio teams in Dubai and Lahore.
+            <p className="text-base sm:text-lg font-light leading-relaxed max-w-[560px]" style={{ color: '#444440' }}>
+              Have a project in mind or require specialized architectural, interior design, or CGI rendering consultancy? Connect with our team to bring your vision to life.
             </p>
 
-            {/* Studio Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-
-              {/* Dubai Studio Card */}
-              <div
-                className="rounded-2xl transition-all duration-300 group"
-                style={{
-                  backgroundColor: '#F4F0EA',
-                  border: '1px solid rgba(26, 26, 26, 0.12)',
-                  padding: '32px 28px',
-                }}
-              >
-                <div className="flex items-center justify-between mb-6 pb-3" style={{ borderBottom: '1px solid rgba(26, 26, 26, 0.1)' }}>
-                  <h3
-                    className="text-sm font-bold tracking-wider uppercase"
+            {/* Direct Contact Info */}
+            <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 py-2">
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
+                  style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
+                >
+                  <Mail className="w-4 h-4" style={{ color: '#1a1a1a' }} />
+                </div>
+                <div>
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: '#888880' }}>
+                    Email Us
+                  </span>
+                  <a
+                    href="mailto:info@armarchengineering.com"
+                    className="text-sm sm:text-base font-semibold hover:opacity-50 transition-opacity"
                     style={{ color: '#1a1a1a' }}
                   >
-                    Dubai Studio
-                  </h3>
-                  <span
-                    className="text-[10px] font-semibold tracking-widest px-2.5 py-1 rounded-full uppercase"
-                    style={{ backgroundColor: 'rgba(26, 26, 26, 0.08)', color: '#1a1a1a' }}
-                  >
-                    UAE
-                  </span>
+                    info@armarchengineering.com
+                  </a>
                 </div>
-
-                <ul className="space-y-4 text-xs sm:text-sm font-light" style={{ color: '#444440' }}>
-                  {/* Phone */}
-                  <li className="flex items-center gap-3">
-                    <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
-                    >
-                      <Phone className="w-4 h-4" style={{ color: '#1a1a1a' }} />
-                    </div>
-                    <a href="tel:+97141234567" className="font-medium hover:opacity-50 transition-opacity" style={{ color: '#1a1a1a' }}>
-                      +971 4 123 4567
-                    </a>
-                  </li>
-
-                  {/* Mail */}
-                  <li className="flex items-center gap-3">
-                    <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
-                    >
-                      <Mail className="w-4 h-4" style={{ color: '#1a1a1a' }} />
-                    </div>
-                    <a href="mailto:info@armarchengineering.com" className="font-medium hover:opacity-50 transition-opacity" style={{ color: '#1a1a1a' }}>
-                      info@armarchengineering.com
-                    </a>
-                  </li>
-
-                  {/* Map Pin */}
-                  <li className="flex items-start gap-3">
-                    <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5"
-                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
-                    >
-                      <MapPin className="w-4 h-4" style={{ color: '#1a1a1a' }} />
-                    </div>
-                    <span className="leading-snug" style={{ color: '#555550' }}>
-                      ArmArch Studio, Boulevard Plaza, Downtown Dubai, UAE
-                    </span>
-                  </li>
-
-                  {/* Clock */}
-                  <li className="flex items-center gap-3">
-                    <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
-                    >
-                      <Clock className="w-4 h-4" style={{ color: '#1a1a1a' }} />
-                    </div>
-                    <span style={{ color: '#555550' }}>Mon &ndash; Sat: 9:00 AM &ndash; 6:00 PM</span>
-                  </li>
-                </ul>
               </div>
 
-              {/* Lahore Studio Card */}
-              <div
-                className="rounded-2xl transition-all duration-300 group"
-                style={{
-                  backgroundColor: '#F4F0EA',
-                  border: '1px solid rgba(26, 26, 26, 0.12)',
-                  padding: '32px 28px',
-                }}
-              >
-                <div className="flex items-center justify-between mb-6 pb-3" style={{ borderBottom: '1px solid rgba(26, 26, 26, 0.1)' }}>
-                  <h3
-                    className="text-sm font-bold tracking-wider uppercase"
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
+                  style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
+                >
+                  <Phone className="w-4 h-4" style={{ color: '#1a1a1a' }} />
+                </div>
+                <div>
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: '#888880' }}>
+                    Call Us
+                  </span>
+                  <a
+                    href="tel:+97141234567"
+                    className="text-sm sm:text-base font-semibold hover:opacity-50 transition-opacity"
                     style={{ color: '#1a1a1a' }}
                   >
-                    Lahore Studio
-                  </h3>
-                  <span
-                    className="text-[10px] font-semibold tracking-widest px-2.5 py-1 rounded-full uppercase"
-                    style={{ backgroundColor: 'rgba(26, 26, 26, 0.08)', color: '#1a1a1a' }}
-                  >
-                    PK
-                  </span>
+                    +971 4 123 4567
+                  </a>
                 </div>
-
-                <ul className="space-y-4 text-xs sm:text-sm font-light" style={{ color: '#444440' }}>
-                  {/* Phone */}
-                  <li className="flex items-center gap-3">
-                    <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
-                    >
-                      <Phone className="w-4 h-4" style={{ color: '#1a1a1a' }} />
-                    </div>
-                    <a href="tel:+923001234567" className="font-medium hover:opacity-50 transition-opacity" style={{ color: '#1a1a1a' }}>
-                      +92 300 123 4567
-                    </a>
-                  </li>
-
-                  {/* Mail */}
-                  <li className="flex items-center gap-3">
-                    <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
-                    >
-                      <Mail className="w-4 h-4" style={{ color: '#1a1a1a' }} />
-                    </div>
-                    <a href="mailto:info@armarchengineering.com" className="font-medium hover:opacity-50 transition-opacity" style={{ color: '#1a1a1a' }}>
-                      info@armarchengineering.com
-                    </a>
-                  </li>
-
-                  {/* Map Pin */}
-                  <li className="flex items-start gap-3">
-                    <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5"
-                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
-                    >
-                      <MapPin className="w-4 h-4" style={{ color: '#1a1a1a' }} />
-                    </div>
-                    <span className="leading-snug" style={{ color: '#555550' }}>
-                      ArmArch Studio, Gulberg III, Lahore, Pakistan
-                    </span>
-                  </li>
-
-                  {/* Clock */}
-                  <li className="flex items-center gap-3">
-                    <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-                      style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
-                    >
-                      <Clock className="w-4 h-4" style={{ color: '#1a1a1a' }} />
-                    </div>
-                    <span style={{ color: '#555550' }}>Mon &ndash; Sat: 9:00 AM &ndash; 6:00 PM</span>
-                  </li>
-                </ul>
               </div>
-
             </div>
 
             {/* Small Elegant Quote Accent */}
@@ -352,8 +238,8 @@ export default function ContactSection() {
                   htmlFor="fullName"
                   className={`absolute left-0 transition-all duration-200 pointer-events-none text-xs font-semibold uppercase tracking-wider ${
                     focused.fullName || formData.fullName
-                      ? 'top-0 text-[#1a1a1a]'
-                      : 'top-5 text-[#888880] peer-focus:top-0 peer-focus:text-[#1a1a1a]'
+                      ? '-top-5 text-[#1a1a1a]'
+                      : '-top-2 text-[#888880] peer-focus:top-0 peer-focus:text-[#1a1a1a]'
                   }`}
                 >
                   Full Name <span style={{ color: '#1a1a1a' }}>*</span>
@@ -381,8 +267,8 @@ export default function ContactSection() {
                   htmlFor="email"
                   className={`absolute left-0 transition-all duration-200 pointer-events-none text-xs font-semibold uppercase tracking-wider ${
                     focused.email || formData.email
-                      ? 'top-0 text-[#1a1a1a]'
-                      : 'top-5 text-[#888880] peer-focus:top-0 peer-focus:text-[#1a1a1a]'
+                      ? '-top-5 text-[#1a1a1a]'
+                      : '-top-2 text-[#888880] peer-focus:top-0 peer-focus:text-[#1a1a1a]'
                   }`}
                 >
                   Email Address <span style={{ color: '#1a1a1a' }}>*</span>
@@ -411,8 +297,8 @@ export default function ContactSection() {
                     htmlFor="phone"
                     className={`absolute left-0 transition-all duration-200 pointer-events-none text-xs font-semibold uppercase tracking-wider ${
                       focused.phone || formData.phone
-                        ? 'top-0 text-[#1a1a1a]'
-                        : 'top-5 text-[#888880] peer-focus:top-0 peer-focus:text-[#1a1a1a]'
+                        ? '-top-5 text-[#1a1a1a]'
+                        : '-top-2 text-[#888880] peer-focus:top-0 peer-focus:text-[#1a1a1a]'
                     }`}
                   >
                     Phone Number
@@ -468,8 +354,8 @@ export default function ContactSection() {
                   htmlFor="message"
                   className={`absolute left-0 transition-all duration-200 pointer-events-none text-xs font-semibold uppercase tracking-wider ${
                     focused.message || formData.message
-                      ? 'top-0 text-[#1a1a1a]'
-                      : 'top-5 text-[#888880] peer-focus:top-0 peer-focus:text-[#1a1a1a]'
+                      ? '-top-5 text-[#1a1a1a]'
+                      : '-top-2 text-[#888880] peer-focus:top-0 peer-focus:text-[#1a1a1a]'
                   }`}
                 >
                   Project Details / Message <span style={{ color: '#1a1a1a' }}>*</span>
@@ -484,6 +370,8 @@ export default function ContactSection() {
                 style={{
                   backgroundColor: '#1a1a1a',
                   color: '#EDE9E3',
+                  paddingTop: '15px',
+                  paddingBottom: '15px',
                 }}
               >
                 {submitted ? (

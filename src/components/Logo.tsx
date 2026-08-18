@@ -3,15 +3,14 @@ import Link from "next/link";
 
 export default function Logo() {
   return (
-    <Link href="/" aria-label="ArmArch – go to homepage" className="flex-shrink-0">
+    <Link href="/" aria-label="ArmArch – go to homepage" className="flex-shrink-0 inline-block">
       <Image
-        src="/armarch-logo.png"
+        src="/logo.webp"
         alt="ArmArch logo"
-        width={110}
+        width={220}
         height={80}
         priority
-        className="object-contain"
-        style={{ width: "auto", height: "80px" }}
+        className="object-contain w-auto h-12 sm:h-14 md:h-16 transition-opacity duration-200 hover:opacity-80"
       />
     </Link>
   );

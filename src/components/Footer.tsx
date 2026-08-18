@@ -2,6 +2,7 @@
 
 import { ArrowUp } from 'lucide-react'
 import { FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa'
+import Logo from '@/components/Logo'
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -74,16 +75,9 @@ export default function Footer() {
               >
                 Est. 2020
               </p>
-              <span
-                className="block font-black uppercase leading-none"
-                style={{
-                  fontSize: 'clamp(36px, 5vw, 56px)',
-                  letterSpacing: '-0.03em',
-                  color: '#1a1a1a',
-                }}
-              >
-                ArmArch
-              </span>
+              <div className="my-1">
+                <Logo />
+              </div>
               <p
                 className="mt-3 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em]"
                 style={{ color: '#888880' }}
@@ -198,15 +192,6 @@ export default function Footer() {
                 >
                   +971 4 123 4567
                 </a>
-              </li>
-              <li>
-                <span className="block text-[9px] uppercase tracking-[0.25em] font-semibold mb-0.5" style={{ color: '#888880' }}>
-                  Studios
-                </span>
-                <address className="not-italic font-light leading-relaxed text-xs" style={{ color: '#555550' }}>
-                  Boulevard Plaza, Downtown Dubai, UAE<br />
-                  Gulberg III, Lahore, Pakistan
-                </address>
               </li>
             </ul>
           </div>
