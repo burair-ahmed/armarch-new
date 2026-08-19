@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Logo from "@/components/Logo";
 
 export default function Header() {
@@ -9,21 +8,13 @@ export default function Header() {
         className="flex items-center justify-center gap-4 sm:gap-8 md:gap-12 lg:gap-16 max-w-full overflow-x-auto no-scrollbar"
       >
         {/* Left items */}
-        <Link
-          href="/designs"
-          className="text-[11px] sm:text-[13px] font-medium text-black hover:opacity-60 transition-opacity duration-200 whitespace-nowrap relative group"
-        >
+        <span className="text-[11px] sm:text-[13px] font-medium text-black whitespace-nowrap cursor-default">
           Architectural Designs
-          <span className="absolute -bottom-1 left-0 w-0 h-px bg-black transition-all duration-300 group-hover:w-full" />
-        </Link>
+        </span>
 
-        <Link
-          href="/cgi-visualization"
-          className="text-[11px] sm:text-[13px] font-medium text-black hover:opacity-60 transition-opacity duration-200 whitespace-nowrap relative group"
-        >
+        <span className="text-[11px] sm:text-[13px] font-medium text-black whitespace-nowrap cursor-default">
           CGI Visualization
-          <span className="absolute -bottom-1 left-0 w-0 h-px bg-black transition-all duration-300 group-hover:w-full" />
-        </Link>
+        </span>
 
         {/* Centered Logo */}
         <div className="flex-shrink-0 px-2 sm:px-4">
@@ -31,21 +22,13 @@ export default function Header() {
         </div>
 
         {/* Right items */}
-        <Link
-          href="/vr-walkthroughs"
-          className="text-[11px] sm:text-[13px] font-medium text-black hover:opacity-60 transition-opacity duration-200 whitespace-nowrap relative group"
-        >
+        <span className="text-[11px] sm:text-[13px] font-medium text-black whitespace-nowrap cursor-default">
           VR Walk Throughs
-          <span className="absolute -bottom-1 left-0 w-0 h-px bg-black transition-all duration-300 group-hover:w-full" />
-        </Link>
+        </span>
 
-        <Link
-          href="/consultancy"
-          className="text-[11px] sm:text-[13px] font-medium text-black hover:opacity-60 transition-opacity duration-200 whitespace-nowrap relative group"
-        >
+        <span className="text-[11px] sm:text-[13px] font-medium text-black whitespace-nowrap cursor-default">
           Consultancy
-          <span className="absolute -bottom-1 left-0 w-0 h-px bg-black transition-all duration-300 group-hover:w-full" />
-        </Link>
+        </span>
       </nav>
     </header>
   );
