@@ -89,7 +89,7 @@ export default function Footer() {
             {/* Short description */}
             <p className="text-sm leading-relaxed font-light max-w-[260px]" style={{ color: '#555550' }}>
               Design. Visualize. Build. Crafting precision-led architectural
-              experiences from Dubai to Lahore.
+              experiences.
             </p>
 
             {/* Social icons — official brand icons via react-icons */}
@@ -143,13 +143,14 @@ export default function Footer() {
             <ul className="flex flex-col gap-3.5">
               {[
                 { label: 'Architectural Designs', href: '/designs' },
-                { label: 'CGI Visualization',     href: '/cgi-visualization' },
-                { label: 'VR Walk Throughs',       href: '/vr' },
-                { label: 'Consultancy',            href: '/consultancy' },
+                { label: 'CGI Visualization', href: '/cgi-visualization' },
+                { label: 'VR Walk Throughs', href: 'https://maj.armarchengineering.com/', external: true },
+                { label: 'Consultancy', href: '/consultancy' },
               ].map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     className="text-sm font-medium transition-opacity duration-200 hover:opacity-40 uppercase tracking-wide"
                     style={{ color: '#1a1a1a', letterSpacing: '0.06em' }}
                   >
@@ -186,12 +187,20 @@ export default function Footer() {
                   Phone
                 </span>
                 <a
-                  href="tel:+97141234567"
+                  href="tel:+923113302442"
                   className="font-medium transition-opacity duration-200 hover:opacity-50"
                   style={{ color: '#1a1a1a' }}
                 >
-                  +971 4 123 4567
+                  +92 311 3302442
                 </a>
+              </li>
+              <li>
+                <span className="block text-[9px] uppercase tracking-[0.25em] font-semibold mb-0.5" style={{ color: '#888880' }}>
+                  Address
+                </span>
+                <span className="font-medium leading-relaxed block text-xs" style={{ color: '#1a1a1a' }}>
+                  E-40, PECHS, Block 6, Karachi Pakistan
+                </span>
               </li>
             </ul>
           </div>
@@ -206,7 +215,7 @@ export default function Footer() {
                 Studio Hours
               </h4>
               <div className="flex flex-col gap-2 text-xs font-light" style={{ color: '#555550' }}>
-                <p><span className="font-semibold uppercase tracking-wider text-[9px]" style={{ color: '#888880' }}>Mon – Sat</span><br />9:00 AM – 6:00 PM</p>
+                <p><span className="font-semibold uppercase tracking-wider text-[9px]" style={{ color: '#888880' }}>Mon – Sat</span><br />10:00 AM – 6:00 PM</p>
                 <p><span className="font-semibold uppercase tracking-wider text-[9px]" style={{ color: '#888880' }}>Sunday</span><br />Closed</p>
               </div>
             </div>

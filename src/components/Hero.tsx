@@ -95,6 +95,15 @@ export default function Hero() {
   // ── KEYFRAME 0.94 -> 1.00: "Founder's Note" section slides up over Modern Gym
   const foundersNoteY = useTransform(scrollYProgress, [0.94, 1.00], ['100%', '0%'])
 
+  const handleScrollDown = () => {
+    if (typeof window !== 'undefined') {
+      window.scrollBy({
+        top: Math.round(window.innerHeight * 1.5),
+        behavior: 'smooth',
+      })
+    }
+  }
+
   return (
     // Outer scroll track (1900vh height pins the viewport for the entire sequence)
     <div ref={containerRef} className="relative h-[1900vh]">
@@ -180,15 +189,19 @@ export default function Hero() {
         </div>
 
         {/* ── Centered bottom "Scroll Down" animated arrow ── */}
-        <motion.div
-          aria-hidden="true"
+        <motion.button
+          type="button"
+          onClick={handleScrollDown}
+          aria-label="Scroll down"
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 select-none z-[5]"
+          transition={{ opacity: { delay: 1.2, duration: 0.6 }, y: { delay: 1.2, duration: 0.6 } }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 select-none z-30 cursor-pointer bg-transparent border-0 p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/20 rounded-md group"
         >
           <span
-            className="text-[11px] uppercase tracking-[0.35em] font-bold"
+            className="text-[11px] uppercase tracking-[0.35em] font-bold transition-opacity group-hover:opacity-75"
             style={{ color: '#111111' }}
           >
             Scroll Down
@@ -207,7 +220,7 @@ export default function Hero() {
           >
             <ChevronDown className="w-6 h-6 text-[#111111] stroke-[2.5] opacity-40" />
           </motion.div>
-        </motion.div>
+        </motion.button>
 
         {/* ── KEYFRAME 0.20 -> 0.35: Full "About Us" overlay section ────────────── */}
         <motion.div

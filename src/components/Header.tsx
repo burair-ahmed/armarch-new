@@ -22,9 +22,14 @@ export default function Header() {
         </div>
 
         {/* Right items */}
-        <span className="text-[11px] sm:text-[13px] font-medium text-black whitespace-nowrap cursor-default">
+        <a
+          href="https://maj.armarchengineering.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[11px] sm:text-[13px] font-medium text-black whitespace-nowrap hover:opacity-60 transition-opacity cursor-pointer"
+        >
           VR Walk Throughs
-        </span>
+        </a>
 
         <span className="text-[11px] sm:text-[13px] font-medium text-black whitespace-nowrap cursor-default">
           Consultancy

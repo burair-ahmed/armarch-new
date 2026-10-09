@@ -90,7 +90,7 @@ export default function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          style={{ marginBottom: '56px' }}
+          style={{ marginBottom: '24px' }}
         >
           <div className="flex items-center gap-3 mb-4">
             <span className="w-8 h-[1px] bg-[#1a1a1a]" />
@@ -103,21 +103,24 @@ export default function ContactSection() {
           </div>
 
           <h2
-            className="font-black uppercase leading-[0.95] tracking-tight max-w-[850px]"
+            className="font-black uppercase leading-[0.95] tracking-tight max-w-[850px] mb-0 mt-0"
             style={{
               fontSize: 'clamp(36px, 5.5vw, 68px)',
               color: '#1a1a1a',
               letterSpacing: '-0.03em',
+              margin: 0,
             }}
-          >
-            Let&apos;s Build<br />
-            Something<br />
-            Timeless.
-          </h2>
+          >{'Let\u2019s Build\nSomething\nTimeless.'.split('\n').map((line, i) => (
+            <span key={i} style={{ display: 'block' }}>{line}</span>
+          ))}</h2>
+
+          <p className="text-base sm:text-lg font-light leading-relaxed max-w-[560px] mt-4" style={{ color: '#444440' }}>
+            Have a project in mind or require specialized architectural, interior design, or CGI rendering consultancy? Connect with our team to bring your vision to life.
+          </p>
         </motion.div>
 
         {/* Asymmetric Desktop 55/45 Split Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
           {/* ── LEFT COLUMN: Studio Info & Cards (~55% width -> lg:col-span-7) ── */}
           <motion.div
@@ -127,12 +130,9 @@ export default function ContactSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lg:col-span-7 flex flex-col justify-start gap-6 sm:gap-8"
           >
-            <p className="text-base sm:text-lg font-light leading-relaxed max-w-[560px]" style={{ color: '#444440' }}>
-              Have a project in mind or require specialized architectural, interior design, or CGI rendering consultancy? Connect with our team to bring your vision to life.
-            </p>
 
             {/* Direct Contact Info */}
-            <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 py-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 py-2">
               <div className="flex items-center gap-3">
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
@@ -166,12 +166,46 @@ export default function ContactSection() {
                     Call Us
                   </span>
                   <a
-                    href="tel:+97141234567"
+                    href="tel:+923113302442"
                     className="text-sm sm:text-base font-semibold hover:opacity-50 transition-opacity"
                     style={{ color: '#1a1a1a' }}
                   >
-                    +971 4 123 4567
+                    +92 311 3302442
                   </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
+                  style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
+                >
+                  <MapPin className="w-4 h-4" style={{ color: '#1a1a1a' }} />
+                </div>
+                <div>
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: '#888880' }}>
+                    Address
+                  </span>
+                  <span className="text-sm font-semibold leading-snug block" style={{ color: '#1a1a1a' }}>
+                    E-40, PECHS, Block 6, Karachi Pakistan
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
+                  style={{ backgroundColor: 'rgba(26, 26, 26, 0.06)', border: '1px solid rgba(26, 26, 26, 0.1)' }}
+                >
+                  <Clock className="w-4 h-4" style={{ color: '#1a1a1a' }} />
+                </div>
+                <div>
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: '#888880' }}>
+                    Hours
+                  </span>
+                  <span className="text-sm font-semibold leading-snug block" style={{ color: '#1a1a1a' }}>
+                    Mon – Sat: 10:00 AM – 6:00 PM
+                  </span>
                 </div>
               </div>
             </div>
@@ -200,15 +234,14 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-5 rounded-2xl h-full flex flex-col justify-between shadow-sm"
+            className="lg:col-span-5 rounded-2xl flex flex-col shadow-sm"
             style={{
               backgroundColor: '#F4F0EA',
               border: '1px solid rgba(26, 26, 26, 0.12)',
-              padding: '56px 44px',
-              minHeight: '640px',
+              padding: '44px',
             }}
           >
-            <form onSubmit={handleSubmit} className="space-y-10 flex flex-col justify-between h-full flex-1">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
               
               <h3
                 className="text-xl sm:text-2xl font-black tracking-tight pb-4 uppercase"
@@ -366,7 +399,7 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={submitted}
-                className="w-full mt-6 font-black text-xs uppercase tracking-[0.25em] py-5 px-8 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-xl active:scale-[0.99] disabled:opacity-80 cursor-pointer group"
+                className="w-full font-black text-xs uppercase tracking-[0.25em] py-5 px-8 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-xl active:scale-[0.99] disabled:opacity-80 cursor-pointer group"
                 style={{
                   backgroundColor: '#1a1a1a',
                   color: '#EDE9E3',
